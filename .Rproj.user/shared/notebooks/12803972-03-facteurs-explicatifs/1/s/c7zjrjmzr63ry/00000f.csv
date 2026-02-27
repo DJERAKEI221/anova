@@ -1,0 +1,17 @@
+"0","# --- Tableau type ANOVA pour les effets fixes (nlme) ---"
+"0","atab <- as.data.frame(anova(modele))"
+"0","atab <- cbind(Effet = rownames(atab), atab)"
+"0","rownames(atab) <- NULL"
+"0","pcol <- which(names(atab) %in% c(""Pr(>F)"", ""p-value"", ""p""))[1]"
+"0","if (!is.na(pcol) && is.numeric(atab[[pcol]])) atab[[pcol]] <- format.pval(atab[[pcol]], digits = 3, eps = 0.001)"
+"0","fcol <- which(names(atab) %in% c(""F value"", ""F-value""))[1]"
+"0","if (!is.na(fcol) && is.numeric(atab[[fcol]])) atab[[fcol]] <- format(round(atab[[fcol]], 3), nsmall = 3)"
+"0","names(atab) <- gsub(""Pr\\(>F\\)"", ""p"", names(atab))"
+"0","names(atab) <- gsub(""p-value"", ""p"", names(atab))"
+"0","names(atab) <- gsub(""F value|F-value"", ""F"", names(atab))"
+"0","names(atab) <- gsub(""NumDF|numDF"", ""Ddl num."", names(atab))"
+"0","names(atab) <- gsub(""DenDF|denDF"", ""Ddl dén."", names(atab))"
+"0","knitr::kable(atab, align = c(""l"", rep(""r"", ncol(atab) - 1)), caption = ""Modèle linéaire mixte (nlme) : effets fixes (taille ~ groupe × variété × période, random = ~ 1 | id)."")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

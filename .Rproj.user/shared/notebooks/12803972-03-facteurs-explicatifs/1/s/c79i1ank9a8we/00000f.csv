@@ -1,0 +1,3 @@
+"0","mod.hauteur.variete <- lm(hauteur ~ variete)"
+"2","Erreur dans eval(predvars, data, env) : objet 'hauteur' introuvable
+"

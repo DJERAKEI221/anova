@@ -1,0 +1,7 @@
+"0","knitr::kable("
+"0","  ph_per[, c(""Période"", ""Contraste"", ""Différence"", ""ESM"", ""t"", ""p-value"", ""Signif."")],"
+"0","  align = c(""l"", ""l"", ""r"", ""r"", ""r"", ""r"", ""c""),"
+"0","  caption = ""Comparaisons post-hoc Tukey par période. * p < 0,05 ; ** p < 0,01 ; *** p < 0,001."""
+"0",")"
+"2","Erreur : objet 'ph_per' introuvable
+"

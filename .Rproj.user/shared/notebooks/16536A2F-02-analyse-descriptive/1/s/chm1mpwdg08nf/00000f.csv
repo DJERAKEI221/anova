@@ -1,0 +1,26 @@
+"0","# --- Résumé global de la variable taille ---"
+"0","d %>%"
+"0","  tbl_summary("
+"0","    include = taille,"
+"0","    statistic = list(taille ~ ""{n} / {mean} ({sd}) / {min} / {max}""),"
+"0","    label = list(taille ~ ""Taille"")"
+"0","  ) %>%"
+"0","  modify_header(stat_0 ~ ""**n / Moyenne (ET) / Min / Max**"") %>%"
+"0","  modify_caption(""Résumé global de la variable taille"")"
+"2","[31m✖[39m There was an error calculating the summary statistics for [34m[34m""taille""[34m[39m. Is this variable's class supported by `n`, `mean`, `sd`, `min`, and `max`?
+"
+"1","[1m[33mError[39m in `mutate()`:[22m
+[38;5;232m[36mℹ[38;5;232m In argument: `df_stats = pmap(...)`.[39m
+[1mCaused by error in `pmap()`:[22m
+[38;5;232m[36mℹ[38;5;232m In index: 1.[39m
+[1mCaused by error in `abort()`:[22m
+[38;5;232m[33m![38;5;232m `message` must be a character vector, not a <rlang_error> object.[39m
+Backtrace:
+[90m  1. [39m... %>% ...
+[90m 26. [39m[1mgtsummary[22m:::safe_summarise_at(., variable = variable, fns = fns)
+[90m 27. [39m[1mbase[22m::tryCatch(...)
+[90m 28. [39mbase (local) tryCatchList(expr, classes, parentenv, handlers)
+[90m 29. [39mbase (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+[90m 30. [39mvalue[[3L]](cond)
+[90m 31. [39m[1m[94mrlang::abort([39m[22m[1m[95mmessage = e[39m[22m[1m[94m)[39m[22m
+"

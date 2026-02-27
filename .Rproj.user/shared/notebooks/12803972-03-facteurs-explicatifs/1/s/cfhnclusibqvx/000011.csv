@@ -1,0 +1,4 @@
+"0","par(mfrow = c(1, 2))"
+"0","qqnorm(res, main = ""Q-Q des résidus""); qqline(res)"
+"2","Erreur : objet 'res' introuvable
+"

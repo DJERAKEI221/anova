@@ -1,0 +1,4 @@
+"0","# Comparaisons toutes paires de combinaisons groupe × variété (corrigées de Tukey)"
+"0","ph_gv <- pairs(emm_gv, adjust = ""tukey"") %>% as.data.frame()"
+"2","Erreur : objet 'emm_gv' introuvable
+"

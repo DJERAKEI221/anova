@@ -1,0 +1,4 @@
+"0","library(tidyverse)"
+"0","library(afex)"
+"2","Erreur dans library(afex) : aucun package nommé ‘afex’ n'est trouvé
+"

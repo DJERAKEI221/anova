@@ -1,0 +1,17 @@
+"0","# --- Modèle linéaire mixte (nlme) : mêmes effets que lmer, évite l'erreur Matrix sur certains R ---"
+"0","# Formule : taille ~ groupe * variete * periode, random = ~ 1 | id"
+"0","modele <- lme("
+"0","  fixed = taille ~ groupe * variete * periode,"
+"0","  random = ~ 1 | id,"
+"0","  data = d,"
+"0","  na.action = na.exclude"
+"0",")"
+"0","cat(""\n**Sujets :** "", n_distinct(d$id), "" plantes (toutes incluses).\n\n"", sep = """")"
+"1","
+**Sujets :** "
+"1",""
+"1","81"
+"1",""
+"1"," plantes (toutes incluses).
+
+"

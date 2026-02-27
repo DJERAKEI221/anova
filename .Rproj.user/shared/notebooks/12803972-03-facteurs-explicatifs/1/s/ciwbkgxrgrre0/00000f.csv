@@ -1,0 +1,4 @@
+"0","# On extrait les résidus du modèle sous-jacent (lm) contenu dans l'objet afex"
+"0","res <- residuals(anova_rm$lm)"
+"2","Erreur : objet 'anova_rm' introuvable
+"

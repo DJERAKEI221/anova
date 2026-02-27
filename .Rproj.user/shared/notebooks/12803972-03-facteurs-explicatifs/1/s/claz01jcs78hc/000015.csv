@@ -1,0 +1,6 @@
+"0","knitr::kable("
+"0","  tab_rm,"
+"0","  caption = ""ANOVA à mesures répétées (afex::aov_car) : effets de groupe, variété, période et interactions, avec η² partiel."""
+"0",")"
+"2","Erreur : objet 'tab_rm' introuvable
+"

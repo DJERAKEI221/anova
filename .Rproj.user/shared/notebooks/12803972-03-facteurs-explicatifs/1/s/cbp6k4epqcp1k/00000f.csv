@@ -1,0 +1,8 @@
+"0","library(tidyverse)"
+"0","library(emmeans)"
+"0","library(car)"
+"0","if (!requireNamespace(""afex"", quietly = TRUE)) install.packages(""afex"", repos = ""https://cloud.r-project.org"", quiet = TRUE)"
+"0","library(afex)"
+"0","if (!requireNamespace(""gtsummary"", quietly = TRUE)) install.packages(""gtsummary"", repos = ""https://cloud.r-project.org"", quiet = TRUE)"
+"0","library(gtsummary)"
+"0","library(knitr)"

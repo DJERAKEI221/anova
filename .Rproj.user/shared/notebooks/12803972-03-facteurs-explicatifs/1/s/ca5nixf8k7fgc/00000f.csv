@@ -1,0 +1,36 @@
+"0","# Création d'IDs artificiels par (groupe, variete, periode)"
+"0","d2_id <- d2 %>%"
+"0","  group_by(groupe, variete, periode) %>%"
+"0","  arrange(No, .by_group = TRUE) %>%"
+"0","  mutate(rang = row_number()) %>%"
+"0","  ungroup() %>%"
+"0","  mutate(id = interaction(groupe, variete, rang, drop = TRUE))"
+"0",""
+"0","# Passage au format large : une ligne = un ""sujet"", colonnes t1..t4"
+"0","base <- d2_id %>%"
+"0","  mutate("
+"0","    numeromesure = recode(periode,"
+"0","                          ""T1"" = ""t1"","
+"0","                          ""T2"" = ""t2"","
+"0","                          ""T3"" = ""t3"","
+"0","                          ""T4"" = ""t4"")"
+"0","  ) %>%"
+"0","  select(id, groupe, variete, numeromesure, taille) %>%"
+"0","  pivot_wider("
+"0","    names_from  = numeromesure,"
+"0","    values_from = taille"
+"0","  ) %>%"
+"0","  arrange(id)"
+"1","[1m[33mError[39m in `mutate()`:[22m
+[38;5;232m[36mℹ[38;5;232m In argument: `numeromesure = recode(periode, T1 = ""t1"", T2 = ""t2"", T3 = ""t3"", T4 =
+  ""t4"")`.[39m
+[1mCaused by error in `recode()`:[22m
+[33m![39m arguments inutilisés (T1 = ""t1"", T2 = ""t2"", T3 = ""t3"", T4 = ""t4"")
+Backtrace:
+[90m  1. [39m... %>% arrange(id)
+[90m  6. [39m[1m[94mdplyr:::mutate.data.frame([39m[22m...[1m[94m)[39m[22m
+[90m  7. [39mdplyr:::mutate_cols(.data, dplyr_quosures(...), by)
+[90m  9. [39mdplyr:::mutate_col(dots[[i]], data, mask, new_columns)
+[90m 10. [39mmask$eval_all_mutate(quo)
+[90m 11. [39m[1mdplyr[22m (local) eval()
+"

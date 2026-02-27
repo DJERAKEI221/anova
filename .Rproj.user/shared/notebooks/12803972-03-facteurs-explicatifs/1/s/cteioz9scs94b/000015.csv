@@ -1,0 +1,3 @@
+"0","emm_periode <- emmeans(modele, ~ groupe * variete | periode)"
+"2","Erreur : objet 'modele' introuvable
+"

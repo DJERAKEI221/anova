@@ -1,0 +1,3 @@
+"0","names(emm_gv_df) <- c(""Groupe"", ""Variété"", ""Moyenne"", ""ESM"", ""Ddl"", ""IC inf."", ""IC sup."")"
+"2","Erreur : objet 'emm_gv_df' introuvable
+"

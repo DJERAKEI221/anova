@@ -1,0 +1,3 @@
+"0","res <- residuals(modele$lm)"
+"2","Erreur : objet 'modele' introuvable
+"

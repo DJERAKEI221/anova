@@ -1,0 +1,3 @@
+"0","# QQ-plot de normalité par combinaison Fertilisation × Variétés × numeromesure"
+"0","ggqqplot(base_stat_desc, ""Hauteur"", ggtheme = theme_bw()) +"
+"0","  facet_grid(Fertilisation + Variétés ~ numeromesure, labeller = ""label_both"")"

@@ -1,0 +1,18 @@
+"0","# --- Tableau ANOVA formaté ---"
+"0","atab <- as.data.frame(modele$anova_table)"
+"0","atab <- cbind(Effet = rownames(atab), atab)"
+"0","rownames(atab) <- NULL"
+"0","# Colonne p : peut s'appeler ""Pr(>F)"" ou ""p"""
+"0","pcol <- which(names(atab) %in% c(""Pr(>F)"", ""p""))[1]"
+"0","etacol <- which(names(atab) %in% c(""pes"", ""ges"", ""Effect""))[1]"
+"0","if (!is.na(pcol)) atab[[pcol]] <- format.pval(atab[[pcol]], digits = 3, eps = 0.001)"
+"0","atab[[""F""]] <- format(round(atab[[""F""]], 3), nsmall = 3)"
+"0","if (!is.na(etacol) && is.numeric(atab[[etacol]])) atab[[etacol]] <- format(round(atab[[etacol]], 4), nsmall = 4)"
+"0","names(atab) <- gsub(""Pr\\(>F\\)"", ""p"", names(atab))"
+"0","names(atab) <- gsub(""num Df"", ""Ddl num."", names(atab))"
+"0","names(atab) <- gsub(""den Df"", ""Ddl résid."", names(atab))"
+"0","if (""pes"" %in% names(atab)) names(atab)[names(atab) == ""pes""] <- ""η² partiel"""
+"0","knitr::kable(atab, align = c(""l"", rep(""r"", ncol(atab) - 1)), caption = ""ANOVA à mesures répétées (taille ~ groupe × variété + Error(id / période)). Correction Greenhouse-Geisser pour la période."")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

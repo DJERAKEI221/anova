@@ -1,0 +1,90 @@
+"0","library(emmeans)"
+"2","Welcome to emmeans.
+Caution: You lose important information if you filter this package's results.
+See '? untidy'
+"
+"0","library(car)"
+"2","Le chargement a nécessité le package : carData
+"
+"2","
+Attachement du package : ‘car’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    recode
+
+"
+"2","L'objet suivant est masqué depuis ‘package:purrr’:
+
+    some
+
+"
+"0","library(knitr)"
+"0",""
+"0","# Chemins possibles (projet = répertoire de travail ou parent)"
+"0","fichiers_xlsx <- c(""donnees/donnees.xlsx"", ""../donnees/donnees.xlsx"")"
+"0","fichiers_csv  <- c(""donnees.csv"", ""../donnees.csv"")"
+"0",""
+"0","fichier_xlsx <- fichiers_xlsx[file.exists(fichiers_xlsx)][1]"
+"0","fichier_csv  <- fichiers_csv[file.exists(fichiers_csv)][1]"
+"0",""
+"0","d <- NULL"
+"0","if (!is.na(fichier_xlsx)) {"
+"0","  tryCatch({"
+"0","    if (!requireNamespace(""readxl"", quietly = TRUE)) install.packages(""readxl"", repos = ""https://cloud.r-project.org"", quiet = TRUE)"
+"0","    library(readxl)"
+"0","    d <- read_excel(fichier_xlsx)"
+"0","    noms <- names(d)"
+"0","    noms <- tolower(trimws(noms))"
+"0","    noms <- gsub(""\\s+"", ""_"", noms)"
+"0","    noms <- chartr(""éèêëàâäùûüôöîïç"", ""eeeeaaaauuuooiic"", noms)"
+"0","    names(d) <- noms"
+"0","    periodes_noms <- grep(""^t[1-4]$"", names(d), value = TRUE)"
+"0","    if (length(periodes_noms) >= 2L) {"
+"0","      d <- d %>%"
+"0","        mutate(id = paste0(""S"", row_number())) %>%"
+"0","        pivot_longer(all_of(periodes_noms), names_to = ""periode"", values_to = ""taille"") %>%"
+"0","        mutate(periode = factor(toupper(periode), levels = paste0(""T"", 1:4)))"
+"0","    }"
+"0","    if (any(names(d) == ""variété"")) names(d)[names(d) == ""variété""] <- ""variete"""
+"0","  }, error = function(e) d <<- NULL)"
+"0","}"
+"0","if (is.null(d) && !is.na(fichier_csv)) {"
+"0","  tryCatch({"
+"0","    d <- read_csv(fichier_csv, show_col_types = FALSE)"
+"0","  }, error = function(e) d <<- NULL)"
+"0","}"
+"0","if (is.null(d)) {"
+"0","  set.seed(42)"
+"0","  n_par_combinaison <- 8L"
+"0","  d <- expand_grid("
+"0","    groupe = c(""Ma"", ""Ca"", ""An""),"
+"0","    variete = c(""Var1"", ""Var2""),"
+"0","    periode = paste0(""T"", 1:4)"
+"0","  ) %>%"
+"0","    slice(rep(1:n(), each = n_par_combinaison)) %>%"
+"0","    mutate("
+"0","      id = paste0(""P"", rep(1:(n_par_combinaison * 6), each = 4)),"
+"0","      taille = round(10 + as.numeric(factor(periode)) * 2 + rnorm(n(), 0, 1.5), 2)"
+"0","    )"
+"0","}"
+"0",""
+"0","if (!""id"" %in% names(d)) {"
+"0","  n_sujets <- nrow(d) / length(unique(d$periode))"
+"0","  d$id <- paste0(""S"", rep(1:n_sujets, each = length(unique(d$periode))))"
+"0","}"
+"1","[1m[33mError[39m in `$<-`:[22m
+[38;5;232m[33m![38;5;232m Assigned data `paste0(""S"", rep(1:n_sujets, each =
+  length(unique(d$periode))))` must be compatible with existing data.
+[31m✖[38;5;232m Existing data has 253 rows.
+[31m✖[38;5;232m Assigned data has 252 rows.
+[36mℹ[38;5;232m Only vectors of size 1 are recycled.[39m
+[1mCaused by error in `vectbl_recycle_rhs_rows()`:[22m
+[33m![39m Can't recycle input of size 252 to size 253.
+Backtrace:
+[90m 1. [39m[1mbase[22m::`$<-`(`*tmp*`, id, value = `<chr>`)
+[90m 2. [39m[1mtibble[22m:::`$<-.tbl_df`(`*tmp*`, id, value = `<chr>`)
+[90m 3. [39mtibble:::tbl_subassign(...)
+[90m 4. [39m[1m[94mtibble:::vectbl_recycle_rhs_rows([39m[22mvalue, fast_nrow(xo), i_arg = NULL, value_arg, call[1m[94m)[39m[22m
+"

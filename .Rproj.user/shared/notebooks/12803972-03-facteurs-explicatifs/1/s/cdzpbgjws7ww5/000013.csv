@@ -1,0 +1,9 @@
+"0","emm_gv_df <- emm_gv_df %>%"
+"0","  mutate("
+"0","    emmean   = round(emmean, 2),"
+"0","    SE       = round(SE, 3),"
+"0","    lower.CL = round(lower.CL, 2),"
+"0","    upper.CL = round(upper.CL, 2)"
+"0","  )"
+"2","Erreur : objet 'emm_gv_df' introuvable
+"

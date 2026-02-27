@@ -1,0 +1,13 @@
+"0","# ANOVA à mesures répétées (deux facteurs inter-sujets + un facteur intra-sujet)"
+"0","modele <- aov_ez("
+"0","  id = ""id"","
+"0","  dv = ""taille"","
+"0","  data = d,"
+"0","  between = c(""groupe"", ""variete""),"
+"0","  within = ""periode"","
+"0","  type = 3,"
+"0","  anova_table = list(correction = ""GG"", es = ""pes"")"
+"0",")"
+"2","Erreur dans aov_ez(id = ""id"", dv = ""taille"", data = d, between = c(""groupe"",  : 
+  impossible de trouver la fonction ""aov_ez""
+"

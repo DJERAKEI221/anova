@@ -1,0 +1,54 @@
+project:
+  type: book
+  output-dir: docs
+  resources:
+    - images/
+    - styles.css
+  execute-dir: project
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+  message: false
+
+book:
+  title: "TRAVAIL PRATIQUE D'ANOVA"
+  author: ""
+  date: ""
+  chapters:
+    - index.qmd
+    - 01-theorie-anova-mesures-repetees.qmd
+    - 02-analyse-descriptive.qmd
+    - 03-facteurs-explicatifs.qmd
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    page-layout: full
+    sidebar:
+      style: "docked"
+      search: true
+      collapse-level: 2
+    page-navigation: true
+    bread-crumbs: true
+    smooth-scroll: true
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-block-bg: true
+    code-block-border: "#e9ecef"
+    code-fold: true
+    code-tools: true
+    code-line-numbers: false
+    highlight: tango
+    css: styles.css
+    mainfont: "Source Sans 3"
+    link-color: "#2980b9"
+    fontsize: 1.02em
+    linestretch: 1.55
+    reference-location: margin
+
+bibliography: references.bib

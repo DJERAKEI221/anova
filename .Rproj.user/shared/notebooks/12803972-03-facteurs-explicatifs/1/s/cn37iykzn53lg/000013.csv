@@ -1,0 +1,3 @@
+"0","hist(res, breaks = 15, main = ""Distribution des résidus"", xlab = ""Résidus"")"
+"2","Erreur : objet 'res' introuvable
+"

@@ -1,0 +1,4 @@
+"0","# Moyennes marginales (effet global de groupe × variété, toutes périodes confondues)"
+"0","emm_gv <- emmeans(anova_rm, ~ groupe * variete)"
+"2","Erreur : objet 'anova_rm' introuvable
+"

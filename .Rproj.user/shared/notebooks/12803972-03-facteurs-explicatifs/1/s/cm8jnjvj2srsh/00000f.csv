@@ -1,0 +1,15 @@
+"0","# --- Modèle linéaire à effets fixes : chaque ligne = observation unique (id conservé, pas d'effet aléatoire) ---"
+"0","modele <- lm("
+"0","  taille ~ groupe * variete * periode,"
+"0","  data = d,"
+"0","  na.action = na.exclude"
+"0",")"
+"0","cat(""\n**Observations :** "", nrow(d), "" lignes (chaque ligne = une observation unique).\n\n"", sep = """")"
+"1","
+**Observations :** "
+"1",""
+"1","253"
+"1",""
+"1"," lignes (chaque ligne = une observation unique).
+
+"

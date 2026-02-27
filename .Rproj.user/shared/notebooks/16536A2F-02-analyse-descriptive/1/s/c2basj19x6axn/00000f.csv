@@ -1,0 +1,13 @@
+"0","# --- Tableau croisé fertilisant × variété × période : moyenne (ET) ---"
+"0","d %>%"
+"0","  mutate(fertilisant_variete = paste(as.character(fertilisant), as.character(variete), sep = "" × "")) %>%"
+"0","  tbl_strata("
+"0","    strata = fertilisant_variete,"
+"0","    .tbl_fun = ~ tbl_summary(.x, by = periode, include = hauteur, statistic = list(hauteur ~ ""{mean} ({sd})""), label = list(hauteur ~ ""Hauteur"")),"
+"0","    .header = ""**{strata}**"","
+"0","    .combine_with = ""tbl_stack"""
+"0","  ) %>%"
+"0","  modify_caption(""Moyennes et écarts-types de la hauteur par fertilisant, variété et période"")"
+"2","[36mℹ[39m Column headers among stacked tables differ. Headers from the first table are
+used. Use `quiet = TRUE` to suppress this message.
+"

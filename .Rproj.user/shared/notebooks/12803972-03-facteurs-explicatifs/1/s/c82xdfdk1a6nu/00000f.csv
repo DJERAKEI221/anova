@@ -1,0 +1,7 @@
+"0","# Valeurs aberrantes par groupe"
+"0","knitr::kable("
+"0","  base_stat_desc %>%"
+"0","    group_by(Fertilisation, Variétés, numeromesure) %>%"
+"0","    identify_outliers(Hauteur) %>%"
+"0","    head(10)"
+"0",")"

@@ -1,0 +1,7 @@
+"0","# Boxplot Fertilisation × numeromesure"
+"0","ggplot(base_stat_desc) +"
+"0","  aes(x = Hauteur, y = numeromesure, fill = Fertilisation) +"
+"0","  geom_boxplot() +"
+"0","  scale_fill_hue(direction = 1) +"
+"0","  coord_flip() +"
+"0","  theme_minimal()"

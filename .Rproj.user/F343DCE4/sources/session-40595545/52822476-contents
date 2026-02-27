@@ -1,0 +1,258 @@
+---
+title: "Analyse ANOVA : Croissance des Plantes"
+---
+
+# Introduction théorique {.unnumbered}
+
+## Contexte et limite de l'ANOVA classique
+
+Lorsque les **mêmes individus** sont mesurés à plusieurs reprises (dans le temps ou sous différentes conditions), l'ANOVA classique devient inadaptée : elle repose sur l'**indépendance des observations**, alors que les mesures répétées sur un même sujet introduisent une **dépendance statistique** (corrélation intra-sujet). Si cette structure n'est pas prise en compte, la variance est sous-estimée et les conclusions peuvent être biaisées (risque d'erreur de type I augmenté).
+
+## Définition et caractéristiques de l'ANOVA à mesures répétées
+
+L'**ANOVA à mesures répétées** (ANOVA-MR) est une extension de l'ANOVA conçue pour des données où les mêmes individus sont mesurés plusieurs fois. Elle permet de **comparer les moyennes** d'une variable quantitative à différents moments ou sous différentes conditions, en tenant compte **explicitement de la corrélation** entre mesures répétées.
+
+**Caractéristiques clés :**
+
+-   **Facteur intra-sujet** : le facteur (temps, condition) varie à l'intérieur de chaque sujet ; chaque sujet est observé pour toutes les modalités.
+-   **Contrôle de la variabilité inter-sujets** : on sépare la variance due aux différences entre individus (effet sujet) de la variance intra-sujet.
+-   **Modélisation de la covariance** : la structure de corrélation entre mesures est prise en compte dans le modèle.
+-   **Plus grande puissance** : pour un même nombre de sujets, la méthode améliore la capacité à détecter un effet réel du facteur intra-sujet.
+
+On distingue notamment : (1) l'ANOVA à **un facteur intra-sujet** (ex. évolution dans le temps pour tous les sujets) ; (2) le **modèle mixte (split-plot)**, avec au moins un facteur inter-sujets (ex. groupe) et un facteur intra-sujets (ex. période) — cas de notre étude de croissance ; (3) les plans à **doubles mesures répétées** (deux facteurs intra-sujets).
+
+## Position du problème et structure des données
+
+On dispose de $n$ sujets et de $t$ temps (ou conditions). La mesure pour le sujet $i$ au temps $j$ est notée $Y_{ij}$. La **variabilité totale** se décompose en trois composantes :
+
+$$SCT = SS_{\text{sujets}} + SS_{\text{temps}} + SS_{\text{erreur}}$$
+
+-   $SS_{\text{sujets}}$ : variabilité inter-individuelle (différences entre sujets).
+-   $SS_{\text{temps}}$ : effet du facteur intra-sujet (évolution dans le temps ou entre conditions).
+-   $SS_{\text{erreur}}$ : interaction sujet × temps (résiduelle).
+
+Les **hypothèses statistiques** testées sont : $H_0$ : $\mu_1 = \mu_2 = \cdots = \mu_t$ (aucun effet du facteur temps/condition) contre $H_1$ : il existe au moins deux niveaux dont les moyennes diffèrent.
+
+## Hypothèses du modèle et conditions de validité
+
+Pour que les tests soient valides, les hypothèses suivantes doivent être vérifiées :
+
+1.  **Normalité** : pour chaque temps (ou condition), les résidus du modèle sont supposés distribués normalement. On peut l'évaluer par des graphiques (Q-Q plot) ou des tests (Shapiro-Wilk sur les résidus).
+
+2.  **Homogénéité des variances** (facteurs inter-sujets) : lorsqu'il existe des groupes (ex. terreau, variété), les variances des erreurs doivent être égales entre groupes. Le test de **Levene** est utilisé pour cette vérification.
+
+3.  **Sphéricité** (facteur intra-sujet) : les variances des **différences** entre toutes les paires de temps doivent être égales : $\text{Var}(Y_{ij} - Y_{ik})$ constante pour toutes les paires $(j,k)$. C'est l'hypothèse testée par le **test de Mauchly**. Si elle est rejetée ($p < 0{,}05$), on applique une **correction des degrés de liberté** (Greenhouse-Geisser ou Huynh-Feldt) pour garder des conclusions valides.
+
+**Ordre recommandé** : (1) vérifier la normalité des résidus ; (2) effectuer le test de Mauchly (sphéricité) ; (3) en cas de rejet, utiliser les degrés de liberté corrigés ; (4) réaliser l'ANOVA-MR et les comparaisons post-hoc si nécessaire.
+
+## Test de Mauchly et corrections
+
+Le **test de Mauchly** évalue si la matrice de covariance des différences entre niveaux du facteur intra-sujet a une forme sphérique. Sous $H_0$, une transformation de la statistique $W$ suit approximativement une loi du $\chi^2$. Si $p < \alpha$ (souvent 0,05), on rejette l'hypothèse de sphéricité et on rapporte les résultats avec les **corrections de Greenhouse-Geisser** ou **Huynh-Feldt** sur les degrés de liberté (et donc sur la $p$-valeur).
+
+## Modèle mixte (split-plot) — cas de notre étude
+
+Notre plan combine un **facteur inter-sujets** (groupe = type de terreau ; variété) et un **facteur intra-sujets** (période = T1, T2, T3, T4). Le modèle inclut les effets principaux de ces facteurs, leur **interaction** (ex. l'évolution dans le temps peut différer selon le terreau ou la variété), et un effet aléatoire **sujet** (ou ID). Chaque effet fixe est testé contre le terme d'erreur approprié (inter-sujets ou intra-sujets). En cas d'**interaction significative**, on procède à des analyses des effets simples et à des comparaisons multiples (post-hoc, ex. Tukey ou Bonferroni).
+
+# Import des données et préparation
+
+On charge les librairies nécessaires et on importe le jeu de données. Le fichier **`donnees/donnees.xlsx`** est utilisé en priorité ; à défaut, le script tente `donnees.csv`, puis génère des données fictives. Les données sont converties en format long si nécessaire (colonnes T1–T4 → *période* et *taille*).
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(afex)
+library(emmeans)
+library(car)
+library(knitr)
+
+# Import des données : Excel (donnees/donnees.xlsx) prioritaire, sinon CSV ou données fictives
+fichier_xlsx <- "donnees/donnees.xlsx"
+fichier_csv  <- "donnees.csv"
+
+if (file.exists(fichier_xlsx)) {
+  if (!requireNamespace("readxl", quietly = TRUE)) install.packages("readxl", repos = "https://cloud.r-project.org")
+  library(readxl)
+  d <- read_excel(fichier_xlsx)
+  # Normaliser les noms de colonnes (minuscules, espaces -> _)
+  noms <- names(d)
+  noms <- tolower(trimws(noms))
+  noms <- gsub("\\s+", "_", noms)
+  noms <- chartr("éèêëàâäùûüôöîïç", "eeeeaaaauuuooiic", noms)
+  names(d) <- noms
+  # Si format large (colonnes T1, T2, T3, T4 ou t1, t2, ...)
+  periodes_noms <- grep("^t[1-4]$", names(d), value = TRUE)
+  if (length(periodes_noms) >= 2L) {
+    d <- d %>%
+      mutate(id = paste0("S", row_number())) %>%
+      pivot_longer(all_of(periodes_noms), names_to = "periode", values_to = "taille") %>%
+      mutate(periode = factor(toupper(periode), levels = paste0("T", 1:4)))
+  }
+  # Alias variété -> variete si besoin
+  if (any(names(d) == "variété")) names(d)[names(d) == "variété"] <- "variete"
+} else if (file.exists(fichier_csv)) {
+  d <- read_csv(fichier_csv, show_col_types = FALSE)
+} else {
+  # Données fictives pour structure : groupe (Ma, Ca, An), variete (Var1, Var2), periode (T1-T4), taille
+  set.seed(42)
+  n_par_combinaison <- 8L
+  d <- expand_grid(
+    groupe = c("Ma", "Ca", "An"),
+    variete = c("Var1", "Var2"),
+    periode = paste0("T", 1:4)
+  ) %>%
+    slice(rep(1:n(), each = n_par_combinaison)) %>%
+    mutate(
+      id = paste0("P", rep(1:(n_par_combinaison * 6), each = 4)),
+      taille = round(10 + as.numeric(factor(periode)) * 2 + rnorm(n(), 0, 1.5), 2)
+    )
+}
+
+# Création de la colonne ID si absente (un identifiant par sujet/plante)
+if (!"id" %in% names(d)) {
+  n_sujets <- nrow(d) / length(unique(d$periode))
+  d$id <- paste0("S", rep(1:n_sujets, each = length(unique(d$periode))))
+}
+
+# Facteurs ordonnés pour les analyses
+d <- d %>%
+  mutate(
+    groupe = factor(groupe, levels = c("Ma", "Ca", "An")),
+    variete = factor(variete),
+    periode = factor(periode, levels = paste0("T", 1:4)),
+    id = factor(id)
+  )
+
+head(d) %>% kable(caption = "Aperçu du jeu de données (format long)")
+```
+
+# Analyse descriptive {.unnumbered}
+
+## Tableau des moyennes et écarts-types
+
+Les statistiques descriptives (moyenne et écart-type) de la variable *taille* sont calculées par combinaison de *groupe*, *variété* et *période*.
+
+```{r tab-descriptif}
+desc <- d %>%
+  group_by(groupe, variete, periode) %>%
+  summarise(
+    moyenne = mean(taille, na.rm = TRUE),
+    ecart_type = sd(taille, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    `Moyenne (ET)` = sprintf("%.2f (%.2f)", moyenne, ecart_type)
+  )
+
+kable(
+  desc %>% select(groupe, variete, periode, `Moyenne (ET)`, n),
+  caption = "Moyennes et écarts-types de la taille par groupe, variété et période"
+)
+```
+
+## Graphique d'interaction
+
+Le graphique suivant représente l'évolution de la **taille** en fonction de la **période**, avec des couleurs distinctes pour chaque **groupe** (terreau) et des facettes pour chaque **variété**. Il permet de visualiser d'éventuelles interactions (parallélisme ou croisement des courbes).
+
+```{r plot-interaction, fig.cap="Évolution de la taille (hauteur) selon la période, par groupe et par variété.", fig.height=5}
+d %>%
+  group_by(groupe, variete, periode) %>%
+  summarise(taille_moy = mean(taille, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = periode, y = taille_moy, colour = groupe, group = groupe)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  facet_wrap(~ variete, ncol = 2) +
+  scale_color_brewer(palette = "Set1") +
+  labs(
+    x = "Période",
+    y = "Taille (moyenne)",
+    colour = "Groupe (terreau)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    strip.background = element_rect(fill = "grey92", colour = NA)
+  )
+```
+
+# Analyse statistique {.unnumbered}
+
+## Modèle ANOVA mixte à mesures répétées
+
+Le modèle retenu est : **taille \~ groupe \* variété + Error(ID / période)**. Le facteur *période* est intra-sujet (répété sur chaque *ID*), tandis que *groupe* et *variété* sont inter-sujets. La fonction `aov_ez` du package **afex** permet d'estimer ce plan et d'obtenir les tests corrigés (sphéricité).
+
+```{r modele-afex}
+# ANOVA à mesures répétées avec afex
+modele <- aov_ez(
+  id = "id",
+  dv = "taille",
+  data = d,
+  between = c("groupe", "variete"),
+  within = "periode",
+  type = 3,
+  anova_table = list(correction = "GG", es = "pes")
+)
+
+modele
+```
+
+## Vérification des conditions de validité
+
+### Normalité des résidus
+
+On vérifie la normalité des résidus du modèle (graphique Q-Q et test de Shapiro-Wilk sur un échantillon de résidus si nécessaire).
+
+```{r normalite, fig.cap="Graphique Q-Q des résidus du modèle."}
+res <- residuals(modele$lm)
+par(mfrow = c(1, 2))
+qqnorm(res, main = "Q-Q des résidus"); qqline(res)
+hist(res, breaks = 15, main = "Distribution des résidus", xlab = "Résidus")
+par(mfrow = c(1, 1))
+```
+
+### Homogénéité des variances (Levene)
+
+Le test de Levene est appliqué sur les résidus ou sur une variable synthétique (par exemple moyenne de *taille* par sujet) entre les groupes définis par *groupe* et *variété*.
+
+```{r levene}
+# Moyenne de taille par sujet pour test Levene entre groupes
+moy_sujet <- d %>%
+  group_by(id, groupe, variete) %>%
+  summarise(taille_moy = mean(taille), .groups = "drop")
+
+leveneTest(taille_moy ~ groupe * variete, data = moy_sujet) %>%
+  knitr::kable(caption = "Test de Levene (homogénéité des variances entre groupes)")
+```
+
+### Sphéricité (Mauchly)
+
+Le test de Mauchly et les corrections (Greenhouse-Geisser, Huynh-Feldt) sont fournis par **afex** dans la sortie du modèle (voir tableau ANOVA ci-dessus). On peut les afficher explicitement si besoin.
+
+```{r mauchly}
+# Résumé détaillé incluant Mauchly (via summary du modèle)
+summary(modele)
+```
+
+## Comparaisons post-hoc (emmeans)
+
+Si les interactions (groupe × variété, groupe × période, variété × période, ou groupe × variété × période) sont significatives, on effectue des comparaisons par paires avec **emmeans** pour identifier les associations terreau/variété (et période) optimales.
+
+```{r posthoc}
+# Marges estimées pour les effets principaux et interactions
+emm_groupe_variete <- emmeans(modele, ~ groupe * variete)
+emm_groupe_variete
+
+# Comparaisons deux à deux pour groupe × variété (si interaction significative)
+pairs(emm_groupe_variete, adjust = "tukey") %>%
+  as.data.frame() %>%
+  kable(caption = "Comparaisons post-hoc (Tukey) : groupe × variété")
+
+# Si l'interaction avec période est significative : comparaisons par période
+emm_periode <- emmeans(modele, ~ groupe * variete | periode)
+pairs(emm_periode, adjust = "tukey") %>%
+  as.data.frame() %>%
+  kable(caption = "Comparaisons post-hoc (Tukey) par période", digits = 4)
+```
+
+# Conclusion {.unnumbered}
+
+L'ANOVA à mesures répétées permet de tester l'effet du **terreau** (groupe : Ma, Ca, An), de la **variété** (Var1, Var2) et de la **période** (T1 à T4) sur la croissance (taille), ainsi que leurs interactions. Après vérification des hypothèses (normalité, homogénéité des variances, sphéricité), l'interprétation des effets principaux et des interactions guide le choix de l'**association terreau/variété optimale** : on retiendra les combinaisons pour lesquelles les comparaisons post-hoc indiquent des moyennes significativement supérieures, en cohérence avec les courbes d'évolution du graphique d'interaction. Les résultats du tableau ANOVA et des tests post-hoc (emmeans) doivent être résumés dans le rapport pour conclure sur les traitements recommandés.

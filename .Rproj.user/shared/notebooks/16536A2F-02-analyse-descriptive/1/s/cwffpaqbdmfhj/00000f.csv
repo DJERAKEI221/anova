@@ -1,0 +1,13 @@
+"0","# --- Tableau croisé groupe × variété × période : moyenne (ET) ---"
+"0","d %>%"
+"0","  mutate(groupe_variete = paste(as.character(groupe), as.character(variete), sep = "" × "")) %>%"
+"0","  tbl_strata("
+"0","    strata = groupe_variete,"
+"0","    .tbl_fun = ~ tbl_summary(.x, by = periode, include = taille, statistic = list(taille ~ ""{mean} ({sd})""), label = list(taille ~ ""Taille"")),"
+"0","    .header = ""**{strata}**"","
+"0","    .combine_with = ""tbl_stack"""
+"0","  ) %>%"
+"0","  modify_caption(""Moyennes et écarts-types de la taille par groupe, variété et période"")"
+"2","[36mℹ[39m Column headers among stacked tables differ. Headers from the first table are
+used. Use `quiet = TRUE` to suppress this message.
+"

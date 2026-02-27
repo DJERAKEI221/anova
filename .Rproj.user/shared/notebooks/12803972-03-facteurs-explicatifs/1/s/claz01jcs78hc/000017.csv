@@ -1,0 +1,7 @@
+"0","# Résumé complet du modèle :"
+"0","# - inclut le test de Mauchly (sphéricité)"
+"0","# - et les corrections GG / HF si nécessaire"
+"0","summary(anova_rm)"
+"2","Erreur dans h(simpleError(msg, call)) : 
+  erreur d'ï¿½valuation de l'argument 'object' lors de la sï¿½lection d'une mï¿½thode pour la fonction 'summary' : objet 'anova_rm' introuvable
+"

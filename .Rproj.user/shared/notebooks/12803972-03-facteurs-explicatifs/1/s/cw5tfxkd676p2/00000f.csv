@@ -1,0 +1,6 @@
+"0","# --- Détection des fichiers à importer ---"
+"0","# On teste plusieurs chemins (répertoire projet ou parent)"
+"0","fichiers_xlsx <- c(""donnees/donnees.xlsx"", ""../donnees/donnees.xlsx"")"
+"0","fichiers_csv  <- c(""donnees.csv"", ""../donnees.csv"")"
+"0","fichier_xlsx  <- fichiers_xlsx[file.exists(fichiers_xlsx)][1]"
+"0","fichier_csv   <- fichiers_csv[file.exists(fichiers_csv)][1]"

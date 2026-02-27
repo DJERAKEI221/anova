@@ -1,0 +1,7 @@
+"0","emm_periode <- emmeans(modele, ~ groupe * variete | periode)"
+"0","pairs(emm_periode, adjust = ""tukey"") %>%"
+"0","  as.data.frame() %>%"
+"0","  kable(caption = ""Comparaisons post-hoc (Tukey) par période"", digits = 4)"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

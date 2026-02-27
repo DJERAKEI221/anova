@@ -1,0 +1,10 @@
+"0","# --- Modèle linéaire mixte : effets fixes groupe × variete × periode, effet aléatoire (1 | id) ---"
+"0","# Tous les sujets sont inclus ; les NA sont exclus des calculs (na.exclude)."
+"0","modele <- lmer("
+"0","  taille ~ groupe * variete * periode + (1 | id),"
+"0","  data = d,"
+"0","  na.action = na.exclude"
+"0",")"
+"2","Erreur dans initializePtr() : 
+  la fonction 'cholmod_factor_ldetA' n'existe pas dans le package 'Matrix'
+"

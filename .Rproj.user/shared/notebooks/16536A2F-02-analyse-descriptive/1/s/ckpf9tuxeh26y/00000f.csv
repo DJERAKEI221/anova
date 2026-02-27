@@ -1,0 +1,8 @@
+"0","# --- Résumé de la hauteur par fertilisant, par variété et par période ---"
+"0","resum_grp <- d %>% group_by(fertilisant) %>% summarise(n = n(), `Moyenne (ET)` = sprintf(""%.2f (%.2f)"", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = ""drop"")"
+"0","resum_var <- d %>% group_by(variete) %>% summarise(n = n(), `Moyenne (ET)` = sprintf(""%.2f (%.2f)"", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = ""drop"")"
+"0","resum_per <- d %>% group_by(periode) %>% summarise(n = n(), `Moyenne (ET)` = sprintf(""%.2f (%.2f)"", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = ""drop"")"
+"0","knitr::kable(resum_grp, caption = ""Hauteur : moyenne (ET) par fertilisant (terreau)"")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

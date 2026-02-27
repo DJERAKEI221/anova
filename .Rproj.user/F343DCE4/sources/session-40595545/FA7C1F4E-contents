@@ -1,0 +1,23 @@
+---
+title: "Introduction"
+---
+
+# Introduction {.unnumbered}
+
+## Objectif du livre
+
+Ce livre présente une **analyse de la variance (ANOVA)** appliquée à une étude de croissance végétale. L’objectif est d’évaluer l’effet du **terreau** (groupe : Ma, Ca, An), de la **variété** (Var1, Var2) et du **temps** (périodes T1 à T4) sur la hauteur des plantes, ainsi que leurs interactions, afin d’identifier l’association terreau/variété la plus favorable.
+
+## Plan du livre
+
+1. **Bienvenue** (ce que vous lisez) : présentation du projet et de la structure du livre.
+2. **Introduction** : cadre théorique et objectifs.
+3. **Étude de croissance** : analyse descriptive, modèle ANOVA à mesures répétées, vérification des hypothèses et comparaisons post-hoc, avec le code R et les sorties intégrés.
+
+## Prérequis
+
+- Notions de statistique (ANOVA, facteurs, interactions).
+- R et RStudio (ou Positron) installés.
+- Packages R : `tidyverse`, `afex`, `emmeans`, `car`.
+
+Rendez-vous au chapitre suivant pour l’analyse complète.

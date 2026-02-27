@@ -1,0 +1,11 @@
+"0","fact.temps <- data.frame(TEMPS = as.factor(1:4))"
+"0",""
+"0","mod.hauteur.tps.interaction <- Anova("
+"0","  mod.hauteur.interaction,"
+"0","  idata   = fact.temps,"
+"0","  idesign = ~ TEMPS,"
+"0","  type    = ""III"","
+"0","  test    = ""Wilks"""
+"0",")"
+"2","Erreur : objet 'mod.hauteur.interaction' introuvable
+"

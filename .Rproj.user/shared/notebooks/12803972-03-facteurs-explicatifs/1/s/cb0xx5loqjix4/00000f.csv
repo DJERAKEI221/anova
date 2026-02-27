@@ -1,0 +1,12 @@
+"0","# --- Ajustement du modèle (afex::aov_ez) ---"
+"0","modele <- aov_ez("
+"0","  id = ""id"","
+"0","  dv = ""taille"","
+"0","  data = d,"
+"0","  between = c(""groupe"", ""variete""),"
+"0","  within = ""periode"","
+"0","  type = 3,"
+"0","  anova_table = list(correction = ""GG"", es = ""pes"")"
+"0",")"
+"2","Avis : More than one observation per design cell, aggregating data using `fun_aggregate = mean`.
+To turn off this warning, pass `fun_aggregate = mean` explicitly."

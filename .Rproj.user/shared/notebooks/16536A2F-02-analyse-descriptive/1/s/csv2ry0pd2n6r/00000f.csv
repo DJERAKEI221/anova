@@ -1,0 +1,13 @@
+"0","# --- Résumé global de la variable taille (tableau manuel pour éviter bug de classe gtsummary) ---"
+"0","taille_num <- as.numeric(as.character(d$taille))"
+"0","resum_global <- tibble("
+"0","  Variable = ""Taille"","
+"0","  n = sum(!is.na(taille_num)),"
+"0","  `Moyenne (ET)` = sprintf(""%.2f (%.2f)"", mean(taille_num, na.rm = TRUE), sd(taille_num, na.rm = TRUE)),"
+"0","  Min = sprintf(""%.2f"", min(taille_num, na.rm = TRUE)),"
+"0","  Max = sprintf(""%.2f"", max(taille_num, na.rm = TRUE))"
+"0",")"
+"0","knitr::kable(resum_global, caption = ""Résumé global de la variable taille"")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

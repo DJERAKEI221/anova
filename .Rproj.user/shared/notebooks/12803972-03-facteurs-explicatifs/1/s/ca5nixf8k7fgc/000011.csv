@@ -1,0 +1,7 @@
+"0","# Renommage des colonnes pour coller à l'exemple"
+"0","base <- base %>%"
+"0","  rename("
+"0","    fertilisant = groupe"
+"0","  )"
+"2","Erreur : objet 'base' introuvable
+"

@@ -1,0 +1,4 @@
+"0","# --- Aperçu du jeu de données (format long) ---"
+"0","d %>%"
+"0","  tbl_summary(include = c(fertilisant, variete, periode, hauteur), statistic = list(hauteur ~ ""{mean} ({sd})""), label = list(hauteur ~ ""Hauteur"")) %>%"
+"0","  modify_caption(""Résumé descriptif des variables (fertilisant, variété, période, hauteur)"")"

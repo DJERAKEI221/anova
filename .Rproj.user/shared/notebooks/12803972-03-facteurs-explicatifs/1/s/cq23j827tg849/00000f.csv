@@ -1,0 +1,4 @@
+"0","# Effets de groupe × variété examinés séparément pour chaque période (T1, T2, T3, T4)"
+"0","emm_per <- emmeans(anova_rm, ~ groupe * variete | periode)"
+"2","Erreur : objet 'anova_rm' introuvable
+"

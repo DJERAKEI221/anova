@@ -1,0 +1,6 @@
+"0",""
+"0","emm_periode <- emmeans(modele, ~ groupe * variete | periode)"
+"0","pairs(emm_periode, adjust = ""tukey"") %>%"
+"0","  as.data.frame() %>%"
+"0","  tbl_summary(include = everything()) %>%"
+"0","  modify_caption(""Comparaisons post-hoc (Tukey) par période"")"

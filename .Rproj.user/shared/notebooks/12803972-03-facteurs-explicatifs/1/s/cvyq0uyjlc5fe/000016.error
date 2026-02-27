@@ -1,0 +1,1 @@
+{"frames":[{"func":"knitr::kable(tab_rm, caption = \"ANOVA à mesures répétées (afex::aov_car) : effets de groupe, variété, période et interactions, avec η² partiel.\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Erreur : objet 'tab_rm' introuvable\n"}

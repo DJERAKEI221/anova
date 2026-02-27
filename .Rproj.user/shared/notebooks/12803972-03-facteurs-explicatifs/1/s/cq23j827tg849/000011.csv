@@ -1,0 +1,3 @@
+"0","ph_per <- pairs(emm_per, adjust = ""tukey"") %>% as.data.frame()"
+"2","Erreur : objet 'emm_per' introuvable
+"

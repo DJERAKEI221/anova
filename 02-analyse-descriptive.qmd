@@ -1,0 +1,170 @@
+---
+title: "Analyse descriptive des variables d'étude"
+subtitle: "Données, moyennes et graphiques d'évolution"
+---
+
+Ce chapitre présente l'import des données de croissance, les statistiques descriptives (moyennes, écarts-types, effectifs) et plusieurs graphiques pour décrire la **hauteur** selon la période, le fertilisant (terreau) et la variété.
+
+# Import des données et préparation
+
+Le fichier **`donnees/donnees.xlsx`** est lu ; les variables sont *fertilisant*, *variete*, *periode*, *hauteur*. Plan : mesures répétées **T1–T4 pour Var1 et Var2** (et pour chaque fertilisant). Le facteur **periode** a pour modalités T1, T2, T3, T4. L’identifiant sujet (*id*) est créé si absent.
+
+```{r ch2-libs, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+if (!requireNamespace("gtsummary", quietly = TRUE)) install.packages("gtsummary", repos = "https://cloud.r-project.org", quiet = TRUE)
+library(gtsummary)
+```
+
+```{r ch2-import, error=TRUE}
+# --- Import : plan = mesures répétées T1–T4 pour Var1 et Var2 (colonnes : fertilisant, variete, periode, hauteur) ---
+if (!requireNamespace("readxl", quietly = TRUE)) install.packages("readxl", repos = "https://cloud.r-project.org", quiet = TRUE)
+library(readxl)
+d <- read_excel("donnees/donnees.xlsx")
+
+# Hauteur en numérique (virgule décimale gérée)
+d$hauteur <- as.numeric(gsub(",", ".", as.character(d$hauteur)))
+
+# Identifiant sujet : un id par plante (même id pour les 4 périodes d'une même plante)
+if (!"id" %in% names(d)) {
+  d <- d %>%
+    arrange(fertilisant, variete, periode) %>%
+    group_by(fertilisant, variete, periode) %>%
+    mutate(within_subj = row_number()) %>%
+    ungroup() %>%
+    mutate(id = paste0(as.character(fertilisant), "_", as.character(variete), "_", within_subj))
+}
+
+# Facteurs
+d <- d %>%
+  mutate(
+    periode     = factor(as.character(periode), levels = c("T1", "T2", "T3", "T4")),
+    fertilisant = factor(fertilisant, levels = c("Ma", "Ca", "An")),
+    variete     = factor(variete),
+    id          = factor(id)
+  )
+```
+
+```{r ch2-apercu}
+# --- Aperçu du jeu de données (format long) ---
+d %>%
+  tbl_summary(include = c(fertilisant, variete, periode, hauteur), statistic = list(hauteur ~ "{mean} ({sd})"), label = list(hauteur ~ "Hauteur")) %>%
+  modify_caption("Résumé descriptif des variables (fertilisant, variété, période, hauteur)")
+```
+
+# Structure des données
+
+Nombre total d'observations, de sujets (plantes) et répartition par fertilisant et variété.
+
+```{r ch2-structure}
+# --- Effectifs : nombre d'observations et de sujets ---
+n_obs   <- nrow(d)
+n_sujets <- n_distinct(d$id)
+# Répartition par fertilisant et variété (nombre de sujets uniques)
+sujets_uniq <- d %>% distinct(id, fertilisant, variete)
+
+sujets_uniq %>%
+  tbl_cross(row = fertilisant, col = variete, margin = "row", percent = "none") %>%
+  modify_caption("Nombre de sujets (plantes) par fertilisant (terreau) et variété")
+
+cat("\n**Total :**", n_obs, "observations,", n_sujets, "sujets.\n")
+```
+
+# Résumé de la variable hauteur
+
+Statistiques globales (moyenne, écart-type, min, max) et par facteur.
+
+```{r ch2-resume-global}
+# --- Résumé global de la variable hauteur ---
+hauteur_num <- as.numeric(as.character(d$hauteur))
+resum_global <- tibble(
+  Variable = "Hauteur",
+  n = sum(!is.na(hauteur_num)),
+  `Moyenne (ET)` = sprintf("%.2f (%.2f)", mean(hauteur_num, na.rm = TRUE), sd(hauteur_num, na.rm = TRUE)),
+  Min = sprintf("%.2f", min(hauteur_num, na.rm = TRUE)),
+  Max = sprintf("%.2f", max(hauteur_num, na.rm = TRUE))
+)
+knitr::kable(resum_global, caption = "Résumé global de la variable hauteur")
+```
+
+```{r ch2-resume-par-facteur}
+# --- Résumé de la hauteur par fertilisant, par variété et par période ---
+resum_grp <- d %>% group_by(fertilisant) %>% summarise(n = n(), `Moyenne (ET)` = sprintf("%.2f (%.2f)", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = "drop")
+resum_var <- d %>% group_by(variete) %>% summarise(n = n(), `Moyenne (ET)` = sprintf("%.2f (%.2f)", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = "drop")
+resum_per <- d %>% group_by(periode) %>% summarise(n = n(), `Moyenne (ET)` = sprintf("%.2f (%.2f)", mean(hauteur, na.rm = TRUE), sd(hauteur, na.rm = TRUE)), .groups = "drop")
+knitr::kable(resum_grp, caption = "Hauteur : moyenne (ET) par fertilisant (terreau)")
+knitr::kable(resum_var, caption = "Hauteur : moyenne (ET) par variété")
+knitr::kable(resum_per, caption = "Hauteur : moyenne (ET) par période")
+```
+
+# Tableau des moyennes et écarts-types (fertilisant × variété × période)
+
+Les statistiques descriptives de la **hauteur** sont calculées pour chaque combinaison de *fertilisant*, *variété* et *période*.
+
+```{r ch2-tab-descriptif, error=TRUE}
+# --- Tableau croisé fertilisant × variété × période : moyenne (ET) ---
+d %>%
+  mutate(fertilisant_variete = paste(as.character(fertilisant), as.character(variete), sep = " × ")) %>%
+  tbl_strata(
+    strata = fertilisant_variete,
+    .tbl_fun = ~ tbl_summary(.x, by = periode, include = hauteur, statistic = list(hauteur ~ "{mean} ({sd})"), label = list(hauteur ~ "Hauteur")),
+    .header = "**{strata}**",
+    .combine_with = "tbl_stack"
+  ) %>%
+  modify_caption("Moyennes et écarts-types de la hauteur par fertilisant, variété et période")
+```
+
+# Graphiques descriptifs
+
+## Distribution de la hauteur par période
+
+Boîtes à moustaches pour comparer la distribution de la hauteur à chaque période.
+
+```{r ch2-boxplot-periode, fig.cap="Distribution de la hauteur (boîtes à moustaches) par période.", fig.height=4, error=TRUE}
+ggplot(d, aes(x = periode, y = hauteur, fill = periode)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_brewer(palette = "Pastel1") +
+  labs(x = "Période", y = "Hauteur") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none")
+```
+
+## Distribution de la taille par groupe (terreau)
+
+```{r ch2-boxplot-groupe, fig.cap="Distribution de la hauteur par fertilisant (terreau).", fig.height=4, error=TRUE}
+ggplot(d, aes(x = fertilisant, y = hauteur, fill = fertilisant)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_brewer(palette = "Set1") +
+  labs(x = "Fertilisant (terreau)", y = "Hauteur") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none")
+```
+
+## Graphique d'interaction (évolution selon la période)
+
+Évolution des moyennes de **hauteur** en fonction de la **période**, avec des couleurs par **fertilisant** et des facettes par **variété**. Des courbes non parallèles suggèrent une interaction entre période et fertilisant (ou variété).
+
+```{r ch2-plot-interaction, fig.cap="Évolution de la hauteur (moyenne) selon la période, par fertilisant et par variété.", fig.height=5, error=TRUE}
+d %>%
+  group_by(fertilisant, variete, periode) %>%
+  summarise(hauteur_moy = mean(hauteur, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = periode, y = hauteur_moy, colour = fertilisant, group = fertilisant)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  facet_wrap(~ variete, ncol = 2) +
+  scale_color_brewer(palette = "Set1") +
+  labs(
+    x = "Période",
+    y = "Hauteur (moyenne)",
+    colour = "Fertilisant (terreau)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    strip.background = element_rect(fill = "grey92", colour = NA)
+  )
+```
+
+## Synthèse descriptive
+
+Le tableau et les graphiques ci-dessus permettent de repérer visuellement les combinaisons (fertilisant × variété × période) pour lesquelles la hauteur moyenne est la plus élevée ou la plus faible, et d'anticiper d'éventuelles interactions testées au chapitre 3.

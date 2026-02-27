@@ -1,0 +1,7 @@
+"0","# Affichage côte à côte :"
+"0","# - Q-Q plot : vérification de l'alignement des résidus sur la droite théorique"
+"0","# - Histogramme : forme globale (approximation gaussienne attendue)"
+"0","par(mfrow = c(1, 2))"
+"0","qqnorm(res, main = ""Q-Q des résidus""); qqline(res)"
+"2","Erreur : objet 'res' introuvable
+"

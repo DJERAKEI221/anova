@@ -1,0 +1,511 @@
+---
+title:  \includegraphics[width=0.2\linewidth]{ensae}  \vspace{-0.2cm}
+subtitle:  \Large \textbf{Ecole nationale de la Statsitique et de l'Analyse économique } \vspace{-0.1cm}
+author: \Large \textbf{Année académique 2023-2024}
+header-includes:
+   #- \usepackage{xcolor}
+   ## interligne
+   - \usepackage{setspace}
+   - \setstretch{1.15}
+   ## Centrer mes titres
+   #- \usepackage{sectsty}
+   #- \allsectionsfont{\centering}
+    ## mettre tous les titres en blue ou 
+   - \usepackage{sectsty}
+   - \sectionfont{\color{blue}}
+
+   - \usepackage{tocloft}
+   - \usepackage{tikz}
+   - \usepackage{wallpaper}
+   - \usepackage{lipsum}
+   - \usepackage{leading}
+   - \usepackage{fancyhdr}
+   - \usepackage{blindtext}
+   - \usepackage{amsmath}
+   - \usepackage{graphics}
+   - \usepackage{fancyhdr}
+   - \DeclareMathOperator*{\argmax}{argmax}
+   - \DeclareMathOperator*{\argmin}{argmin}
+   
+   - \renewcommand{\rmdefault}{ptm} 
+   - \renewcommand{\rmfamily}{\fontfamily{ptm}\selectfont\fontsize{12}{15}\selectfont} 
+   
+     \renewcommand{\headrulewidth}{1.5pt}\let\oldheadrule\headrule
+     \renewcommand{\headrule}{\color{blue}\oldheadrule}               
+     \renewcommand{\footrulewidth}{1.5pt}
+     \let\oldfootrule\footrule         
+     \renewcommand{\footrule}{\color{blue}\oldfootrule}
+     \pagestyle{fancy}
+     \cfoot{} 
+     \lhead{\scriptsize{\textcolor{black}{ISE-2}}}
+     \chead{\textcolor{black}{\emph{Brahima TOU}}}
+     \rhead{\textcolor{black}{2023-2024}} 
+     \lfoot{\textcolor{black}{Estimation statistique}} 
+     \rfoot{\textcolor{black}{\small \thepage}} 
+output: 
+  pdf_document: 
+    keep_tex: yes
+  html_document: default
+    #toc: true
+    #toc_depth: 5
+    #theme: united
+---
+
+```{=tex}
+\begingroup
+\color{blue}
+\begin{tikzpicture}[remember picture,overlay]
+    \draw[very thick]
+        ([yshift=-35pt,xshift=35pt]current page.north west)--
+        ([yshift=-35pt,xshift=-35pt]current page.north east)--
+        ([yshift=35pt,xshift=-35pt]current page.south east)--
+        ([yshift=35pt,xshift=35pt]current page.south west)--cycle;
+\end{tikzpicture}
+\endgroup
+```
+```{=tex}
+\vspace{-.2cm} 
+\begin{center}
+
+* * *
+
+\vspace{1.2cm} 
+
+\LARGE{\textbf{COURS DE ESTIMATION }}
+
+
+\end{center}
+```
+```{=tex}
+\begingroup
+\color{blue}
+\begin{center}
+* * *
+
+\begingroup
+\LARGE \textbf{Pratique de l’Estimation statistique}
+\endgroup
+
+* * *
+\end{center}
+\endgroup
+```
+\vspace{1cm}
+
+```{=tex}
+\begin{minipage}{0.50\linewidth}
+\begin{flushleft}
+\textcolor{blue}{\textit{Rédigé par :}} \\ \vspace{5mm}
+\small{Brahima TOU}\\ \vspace{2mm} \textsc{\'Elève Ingénieur Statisticien Economiste}  % Nom auteur
+\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+\begin{flushright}
+\textcolor{blue}{\textit{Sous la supervision de :}} \\ \vspace{3mm}
+\small{Dr.FOFANA}\\ \vspace{1mm} \textsc{Enseignant-Chercheur}
+\end{flushright}
+\end{minipage} \\[1cm]
+```
+```{=tex}
+\begin{center}
+\vspace{1cm}
+\large \textbf{FÉVRIER 2024}
+\vspace{1cm}
+\end{center}
+```
+```{=tex}
+\thispagestyle{empty}
+\newpage
+```
+```{=tex}
+\setcounter{tocdepth}{4}                
+\renewcommand{\contentsname}{\textcolor{blue}{Sommaire}}
+```
+\textcolor{blue}{\tableofcontents} \newpage
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+```
+
+```{r}
+library(mvtnorm)
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(lattice)
+library(rgl)
+library(ggforce)
+library(plot3D)
+library(plotly)
+library(ks)
+library(tinytex)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+L'objectif de ce travail est de mettre en pratique la théorie de l'estimation. Il s'agit en particulier de mettre en oeuvre la théorie des distributions d'échantillonnage, les méthodes d'estimations ponctuelles méthode des moments, méthode du maximum de vraisemblance, méthode des moindres carrés et méthode Bayesienne et les méthodes d'estimation ensembliste.
+
+# Exercice1
+
+On considère une variable aléatoire suivant une loi normale $\mathcal{N}(\mu, \sigma^2)$
+
+## 1.1 Generer un echatillon de taille N=50000 pour mu=100 et sigma2=25
+
+```{r}
+set.seed(123)
+#Initialisation de mu et de sigma carre
+mu=10
+s2=4
+## Generation de la base 
+base<- rnorm(50000,mean=mu,sd=s2)
+#view(base)
+```
+
+## 1.2 Representer sur une meme figure un meme repère son histogramme , sa densité et celle de la loi normale standart
+
+```{r}
+hist(base,col='blue',breaks=14,probability="TRUE")
+legend("topright",legend=c("Densité","la moyenne des moyennes","la variable mère"),col = c("black","blue","red"),cex = 0.8)
+
+lines(density(base),col="black")
+x<-7 ### sequence de l'axe des abscisses
+
+curve(dnorm(x,0,1),
+add = T,
+lty = 2,
+lwd = 2)
+```
+
+## 2.3 Effectuons un tirage aleatoire de taille n respectivement égale à 100,500 et 1000 0 partir de la population mère.
+
+```{r}
+# Tirage aléatoire de taille n = 100
+tirage_100 <- sample(base, 100, replace = TRUE)
+tirage_100<-as.numeric(tirage_100)## pour ramener au format numeriic
+
+# Tirage aléatoire de taille n = 500
+tirage_500 <- sample(base, 500, replace = TRUE)
+tirage_500<-as.numeric(tirage_500)
+
+# Tirage aléatoire de taille n = 1000
+tirage_1000 <- sample(base, 1000, replace = TRUE)
+tirage_1000<-as.numeric(tirage_1000)
+
+```
+
+## 2.4 Comparer les fonction de densités de ces trois tirages et commentons
+
+Pour une meilleure lisibilité de nos graphique,nous representerons dans un seul graphique la densité d'un tirage et celle dela population mère puis compraons.
+
+### 2.4.1 Comparaison de la densité du tirage de taille 100 puis celle de la population mère.
+
+```{r}
+plot(density(tirage_100), 
+     col = "black", 
+      xlab=" ",
+      ylab = " ",
+     main = '', 
+     lwd =2) 
+curve(dnorm(x,mean(base),var(base)),
+add = T,
+lty = 2,
+lwd = 2)
+```
+
+### 2.4.2 Comparaison de la densité du tirage de taille 500 puis celle de la population mère.
+
+```{r}
+plot(density(tirage_500), 
+     col = "black", 
+      xlab=" ",
+      ylab = " ",
+     main = '', 
+     lwd =2) 
+curve(dnorm(x,mean(base),var(base)),
+add = T,
+lty = 2,
+lwd = 2)
+```
+
+### 2.4.3 Comparaison de la densité du tirage de taille 1000 puis celle de la population mère.
+
+```{r}
+plot(density(tirage_1000), 
+     col = "black", 
+      xlab=" ",
+      ylab = " ",
+     main = '', 
+     lwd =2) 
+curve(dnorm(x,mean(base),var(base)),
+add = T,
+lty = 2,
+lwd = 2)
+```
+
+On remarque globalement que plusla taille de l'échantillon devient grand,la fonction de densité de l'echantillon se rapproche de la forme de la loi normale.Ce resultat peut etre vu théoriquement par en passant par le théorème centrale limite.
+
+## 1. 5. Creeons une fonction appelé LV
+
+On creer la fonction quipermet de calculer la log vraissemblance ou les paramètres sont **data** qui prendra l'echantillon et **theta** qui prendra le vecteur
+
+```{r}
+LV <- function(theta, data) {
+  return <- sum(dnorm(data,theta[1],theta[2], log=TRUE))
+}
+```
+
+## 1.6 Calculons LV
+
+### 1.6.1 Calculons LV pour theta=(95,20)
+
+```{r}
+theta0 <-c(95,20)
+result0 <- LV(theta0, tirage_1000)
+kable(result0, caption = "La log vraissemblance pour theta(95,20°")
+```
+
+### 1.6.2 Calculons LV theta(95,30)
+
+```{r}
+theta1 <-c(95,30)
+result1 <- LV(theta1, tirage_1000)
+kable(result1, caption = "La log vraissemblance pour theta(95,30)")
+```
+
+### 1.6.3 Calculons LV pour theta(105,20)
+
+```{r}
+theta2 <-c(105,20)
+result2 <- LV(theta2, tirage_1000)
+kable(result2, caption = "La log vraissemblance pour theta(105,20)")
+```
+
+### 1.6.3 Calculons LV pour theta(100,30)
+
+```{r}
+theta3 <-c(100,30)
+result3 <- LV(theta3, tirage_1000)
+kable(result3, caption = "La log vraissemblance pour theta(103,30)")
+```
+
+### 1.6.5 Choix du theta
+
+La log vraissemblance de theata=(95,30) est superieur aux log vraissemblance des autres theats.par consequent, on choisit theata=(95,30)
+
+## 1.7 Representation graphique de la log vraissemblance pour theata=(95,30)
+
+0n utilise le thetha=(95,30) et puis un echantillon aléatoire de taille n=200
+
+```{r eval=FALSE, include=TRUE}
+library(plotly)
+
+### Generer les donn?es
+mu = 95
+sigma = 30
+x = rnorm(1000, mean = mu, sd = sigma)
+
+## Definir l'espace de mu
+m_grid = seq(-3, 3, length.out = 50)
+
+##D?finir l'espace de sigma^2
+s_grid = seq(0.1, 2, length.out = 50)
+
+ll = numeric(length(m_grid) * length(s_grid))
+k = 1
+for (i in 1:length(m_grid)) {
+  for (j in 1:length(s_grid)) {
+    m = m_grid[i]
+    s = s_grid[j]
+    ll[k] = sum(dnorm(x, mean = m, sd = s, log = TRUE))
+    k = k + 1
+  }
+}
+ll = matrix(ll, ncol = length(s_grid), nrow = length(m_grid))
+
+p <- plot_ly(x = m_grid, y = s_grid, z = ll, type = "surface", 
+             colors = "Blues") %>% add_surface() %>% layout(title = "Vraisemblance en fonction de mu=95 et sigma+30",
+                                                            legend = list(title = list(text="")), 
+                                                            scene = list(
+                                                              xaxis = list(title = "mu"),
+                                                              yaxis = list(title = "sigma"),
+                                                              zaxis = list(title = "vraisemblance")))
+p
+
+```
+
+![](log_vra.png)
+
+
+
+## 1.8 Calculons l'estimateur de vraissemblance
+
+
+```{r}
+#D?finition de la fonction ? maximiser
+
+f <- function(theta, data) {
+  
+  return <- -sum(dnorm(data,theta[1],theta1[2], log=TRUE))
+}
+theta<-c(95,30)
+init <-c(4, 3)
+
+## estimation de \theta.hat
+theta.hat <- nlm(f, init, data=tirage_1000)
+
+mu.hat <-theta.hat$estimate[1] 
+sigma.hat <-theta.hat$estimate[2]^2
+
+```
+
+La moyenne de l'estimateur de maximum de vraissemblance est:
+
+```{r}
+kable(mu.hat, caption = "Estimation de la moyenne par la methode du maximum de vraissemblance")
+```
+La variance de l'estimateur de maximum de vraissemblance est:
+
+```{r}
+kable(sigma.hat, caption = "Estimation de la variance par la methode du maximum de vraissemblance")
+```
+
+## 1.9 ffectuez une estimation par intervalle de confiance  95% de la moyenne et de la variance 
+
+### 1.9.1 Estimation par intervalle de confiance de la moyenne par calcul 
+
+```{r}
+alpha =0.05
+xbar <-mean(tirage_1000)
+S2 <-sd(tirage_1000)^2
+
+n2<-length(tirage_1000)
+MoyMin <- xbar -(qt(1-alpha/2,n2-1)*sqrt(S2))/sqrt(n2)# formule du cours
+MoyMin
+MoyMax <- xbar +(qt(1-alpha/2,n2-1)*sqrt(S2))/sqrt(n2)#formule du cours
+MoyMax
+
+```
+
+L'intervalle de confiance de la moyenne dans laquelle la moyenne est comprise est qu'elle est comprise entre 9.680229 et 10.16895.
+
+### 1.9.1 Estimation par intervalle de confiance de la variance par calcul
+
+```{r}
+IC <-c(n2*S2/qchisq(1-alpha/2, n2-1), n2*S2/qchisq(alpha/2, n2-1))
+
+Vmin <-IC[1]
+Vmax <-IC[2]
+Vmin
+Vmax
+```
+
+D'après le calcul, L'intervalle de confiance de la variance dans laquelle la moyenne est comprise est qu'elle est comprise entre 14.24615 et 16.9788.
+
+
+## Par les fonction predfinis 
+
+
+## 1.10 Calculons la region de confiance
+
+```{r}
+t=seq(0,2*pi, length=100)
+XbarRg=mean(tirage_1000)+sqrt(qchisq(0.95,2)/n2)*sqrt(sd(tirage_1000))*cos(t)
+S2Rg=(sd(tirage_1000)^2)+sqrt(2)*(sd(tirage_1000)^2)*sqrt(qchisq(0.95,2)/n2)*sin(t)
+plot(XbarRg,S2Rg, type = "l",xlab="Esperance", ylab="variance",col='red', main = expression(paste("Rgion de Confiance de de l'echantillon de taille 1000")))
+
+```
+
+
+# Exercice 2
+
+## 2.1. Calculons l'estimateur de $T_n$ de alpha par la methodes moments et  et du maximum de vraissemblance
+
+On genère des donnée de taille n=1000.On choisi alpha=4  et on simule  des données suivant cette loi.
+
+```{r}
+
+```
+
+
+
+### 2.1.1 Estimateur de $T_n$ de alpha par la methodes moments
+
+## Generons un echantillon de taille n=500 suivant cette distribution
+
+```{r}
+
+## Ecrivons la fonction de densité 
+f_priori = function(X,alpha) {
+  return(alpha*(1+alpha)*(1-X)*X^(alpha- 1))
+}
+
+```
+
+
+## 2.2 Determions la loi à posteriori et  generer un echanttillon de de taille n=1000 issu de cette loi;
+
+Comme la loi àpriori est la loi gamma alors la loi à posetriori sera donné par la fonction gamma-inverse.En procedant aux calculs effectués àla main, on tombe sur la la loi `a posteriori est une loi dont on ecrira sa fonction de repartition.
+
+Aussi on a defini a=1,b=2 contenu dans le theta.
+
+
+```{r}
+# fonction de densité de probabilité conjointe
+
+# Définition des paramètres de la loi inverse-gamma a priori
+A = 3
+B = 4
+theta<-c(1,2)### est le vecteur (a, b)
+
+# Définition de la fonction de densité de la loi inverse-gamma a priori
+f_priori = function(theta) {
+  return((B^A / gamma(A)) * (1/theta)^(A + 1) * exp(-A/theta))
+}
+
+# Définition de la vraisemblance dans le cas d' échantillon connu
+ech = c(2.3, 3.1, 2.7, 2.8, 3.2)
+n = length(ech)
+x_bar = mean(ech)
+s2 = var(ech)
+vraiss = function(theta) {
+  return(exp(-n/2 * log(2*pi*theta) - 1/(2*theta) * sum((ech - x_bar)^2)))
+}
+
+# Définition de la fonction de densité de la loi a posteriori
+f_posteriori = function(theta) {
+  return(f_priori(theta) * vraiss(theta))
+}
+
+# Définition de la constante de normalisation de la loi a posteriori
+constante_norm = integrate(f_posteriori, 0, Inf)$value
+
+# Définition de la fonction de densité de la loi a posteriori normalisée
+f_posteriori_norm = function(theta) {
+  return(f_posteriori(theta) / constante_norm)
+}
+
+```
+```{r}
+# Génération d'un échantillon de taille n = 1000 à partir de la loi a posteriori
+ech_1000 = rgamma(1000, A + n/2, B + 1/(2*s2)*n*(x_bar^2))
+
+```
+
+
+
+### 2.2.2 Calculons l'estimateur bayesien
+
+```{r}
+# Calcul de l'estimateur Bayésien d'erreur quadratique moyenne minimale (theta_MMSE)
+theta_bayesien = integrate(function(theta) {theta * f_posteriori_norm(theta)}, 0, Inf)$value
+print(paste("Estimateur Bayésien est: ", theta_bayesien))
+```
+

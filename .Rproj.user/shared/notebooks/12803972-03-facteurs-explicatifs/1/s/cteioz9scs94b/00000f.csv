@@ -1,0 +1,3 @@
+"0","emm_groupe_variete <- emmeans(modele, ~ groupe * variete)"
+"2","Erreur : objet 'modele' introuvable
+"

@@ -1,0 +1,4 @@
+"0","knitr::kable(resum_per, caption = ""Taille : moyenne (ET) par période"")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

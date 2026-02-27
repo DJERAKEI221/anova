@@ -1,0 +1,14 @@
+"0","emm_gv <- emmeans(modele, ~ groupe * variete)"
+"0","emm_gv_df <- summary(emm_gv) %>% as.data.frame()"
+"0","emm_gv_df <- emm_gv_df %>%"
+"0","  mutate("
+"0","    emmean = round(emmean, 2),"
+"0","    SE = round(SE, 3),"
+"0","    lower.CL = round(lower.CL, 2),"
+"0","    upper.CL = round(upper.CL, 2)"
+"0","  )"
+"0","names(emm_gv_df) <- c(""Groupe"", ""Variété"", ""Moyenne"", ""ESM"", ""Ddl"", ""IC inf."", ""IC sup."")"
+"0","knitr::kable(emm_gv_df[, c(""Groupe"", ""Variété"", ""Moyenne"", ""ESM"", ""IC inf."", ""IC sup."")], align = c(""l"", ""l"", ""r"", ""r"", ""r"", ""r""), caption = ""Moyennes marginales (et IC 95 %) pour groupe × variété"")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

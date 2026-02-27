@@ -1,0 +1,16 @@
+"2","Avis : Missing values for 40 ID(s), which were removed before analysis:
+Ma.Var2.5, An.Var1.6, Ma.Var2.6, An.Var1.7, Ma.Var2.7, Ca.Var2.7, Ca.Var1.8, An.Var1.8, Ma.Var2.8, Ca.Var2.8, ... [showing first 10 only]
+Below the first few rows (in wide format) of the removed cases with missing data.
+  "
+"2","Contrasts set to contr.sum for the following variables: groupe, variete
+"
+"0","# Tableau ANOVA ""propre"" (nice) :"
+"0","# - fournit F, p-value, et η² partiel (pes) pour chaque effet"
+"0","tab_rm <- nice(anova_rm, es = ""pes"")"
+"0","knitr::kable("
+"0","  tab_rm,"
+"0","  caption = ""ANOVA à mesures répétées (afex::aov_car) : effets de groupe, variété, période et interactions, avec η² partiel."""
+"0",")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

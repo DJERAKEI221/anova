@@ -1,0 +1,5 @@
+"0","# Tableau ANOVA ""propre"" (nice) :"
+"0","# - fournit F, p-value, et η² partiel (pes) pour chaque effet"
+"0","tab_rm <- nice(anova_rm, es = ""pes"")"
+"2","Erreur : objet 'anova_rm' introuvable
+"

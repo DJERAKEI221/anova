@@ -1,0 +1,7 @@
+"2","Avis : Missing values for 253 ID(s), which were removed before analysis:
+L1, L10, L100, L101, L102, L103, L104, L105, L106, L107, ... [showing first 10 only]
+Below the first few rows (in wide format) of the removed cases with missing data.
+  "
+"2","Erreur : No observations remain after removing missing values.
+  Try adding to ANOVA call: na.rm = TRUE
+"

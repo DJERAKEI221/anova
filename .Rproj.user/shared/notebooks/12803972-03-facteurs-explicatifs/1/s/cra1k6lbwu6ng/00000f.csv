@@ -1,0 +1,6 @@
+"0","library(tidyverse)"
+"0","library(readxl)"
+"0","library(knitr)"
+"0","library(nortest)"
+"2","Erreur dans library(nortest) : aucun package nommé ‘nortest’ n'est trouvé
+"

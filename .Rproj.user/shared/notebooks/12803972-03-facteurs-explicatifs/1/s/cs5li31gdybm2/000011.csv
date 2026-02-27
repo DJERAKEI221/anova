@@ -1,0 +1,3 @@
+"2","Erreur : No observations remain after removing missing values.
+  Try adding to ANOVA call: na.rm = TRUE
+"

@@ -1,0 +1,1 @@
+"0","hist(res, breaks = 15, main = ""Distribution des résidus"", xlab = ""Résidus"")"

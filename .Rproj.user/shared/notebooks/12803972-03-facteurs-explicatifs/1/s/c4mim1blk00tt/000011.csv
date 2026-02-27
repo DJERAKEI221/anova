@@ -1,0 +1,4 @@
+"0","leveneTest(taille_moy ~ groupe * variete, data = moy_sujet) %>%"
+"0","  knitr::kable(caption = ""Test de Levene (homogénéité des variances entre groupes)"")"
+"2","Erreur : objet 'moy_sujet' introuvable
+"

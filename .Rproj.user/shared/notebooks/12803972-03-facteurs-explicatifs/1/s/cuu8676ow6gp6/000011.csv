@@ -1,0 +1,6 @@
+"2","Avis : Missing values for 40 ID(s), which were removed before analysis:
+An_Var1_10, An_Var1_11, An_Var1_6, An_Var1_7, An_Var1_8, An_Var1_9, An_Var2_10, An_Var2_11, An_Var2_12, An_Var2_13, ... [showing first 10 only]
+Below the first few rows (in wide format) of the removed cases with missing data.
+  "
+"2","Contrasts set to contr.sum for the following variables: groupe, variete
+"

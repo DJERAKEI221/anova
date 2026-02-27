@@ -1,0 +1,8 @@
+"0",""
+"0","# Statistiques descriptives par Variétés × numeromesure"
+"0","knitr::kable("
+"0","  base_stat_desc %>%"
+"0","    group_by(Variétés, numeromesure) %>%"
+"0","    get_summary_stats(Hauteur),"
+"0","  caption = ""Statistiques descriptives de Hauteur par Variétés et période de mesure."""
+"0",")"

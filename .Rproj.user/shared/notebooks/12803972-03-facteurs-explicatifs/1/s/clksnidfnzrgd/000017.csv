@@ -1,0 +1,5 @@
+"0","pairs(emm_periode, adjust = ""tukey"") %>%"
+"0","  as.data.frame() %>%"
+"0","  kable(caption = ""Comparaisons post-hoc (Tukey) par période"", digits = 4)"
+"2","Erreur : objet 'emm_periode' introuvable
+"

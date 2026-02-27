@@ -1,0 +1,7 @@
+"0","knitr::kable("
+"0","  ph_gv,"
+"0","  align = c(""l"", ""r"", ""r"", ""r"", ""r"", ""r"", ""c""),"
+"0","  caption = ""Comparaisons post-hoc Tukey : groupe × variété (toutes périodes confondues). * p < 0,05 ; ** p < 0,01 ; *** p < 0,001."""
+"0",")"
+"2","Erreur : objet 'ph_gv' introuvable
+"

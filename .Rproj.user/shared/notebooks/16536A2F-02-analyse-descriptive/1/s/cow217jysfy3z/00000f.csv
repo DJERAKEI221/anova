@@ -1,0 +1,5 @@
+"0","# --- Aperçu du jeu de données (format long) ---"
+"0","# gtsummary : résumé des variables (sur tout le jeu) en tableau descriptif"
+"0","d %>%"
+"0","  tbl_summary(include = c(groupe, variete, periode, taille), statistic = list(taille ~ ""{mean} ({sd})""), label = list(taille ~ ""Taille"")) %>%"
+"0","  modify_caption(""Résumé descriptif des variables (groupe, variété, période, taille)"")"

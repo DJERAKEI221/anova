@@ -1,0 +1,3 @@
+"0","mod.hauteur.interaction <- lm(hauteur ~ variete * fertilisant)"
+"2","Erreur dans eval(predvars, data, env) : objet 'hauteur' introuvable
+"

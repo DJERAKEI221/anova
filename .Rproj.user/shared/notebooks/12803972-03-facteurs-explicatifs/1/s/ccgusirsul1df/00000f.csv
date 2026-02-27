@@ -1,0 +1,17 @@
+"0","# --- Tableau type III (car::Anova) pour le modèle linéaire ---"
+"0","atab <- as.data.frame(car::Anova(modele, type = ""III""))"
+"0","atab <- atab[rownames(atab) != ""(Intercept)"", , drop = FALSE]"
+"0","atab <- cbind(Effet = rownames(atab), atab)"
+"0","rownames(atab) <- NULL"
+"0","pcol <- which(names(atab) %in% c(""Pr(>F)"", ""p-value"", ""Pr(>Chisq)"", ""p""))[1]"
+"0","if (!is.na(pcol) && is.numeric(atab[[pcol]])) atab[[pcol]] <- format.pval(atab[[pcol]], digits = 3, eps = 0.001)"
+"0","fcol <- which(names(atab) %in% c(""F value"", ""F-value"", ""F""))[1]"
+"0","if (!is.na(fcol) && is.numeric(atab[[fcol]])) atab[[fcol]] <- format(round(atab[[fcol]], 3), nsmall = 3)"
+"0","names(atab) <- gsub(""Pr\\(>F\\)"", ""p"", names(atab))"
+"0","names(atab) <- gsub(""Sum Sq"", ""Somme carrés"", names(atab))"
+"0","names(atab) <- gsub(""Mean Sq"", ""Carré moyen"", names(atab))"
+"0","names(atab) <- gsub(""Df"", ""Ddl"", names(atab))"
+"0","knitr::kable(atab, align = c(""l"", rep(""r"", ncol(atab) - 1)), caption = ""Modèle linéaire (taille ~ groupe × variété × période). Type III."")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

@@ -1,0 +1,70 @@
+---
+title: "Théorie sur l'Analyse de la Variance à mesures répétées"
+subtitle: "Cadre conceptuel, hypothèses et modèles"
+---
+
+::: {.callout-note}
+## Idée clé
+L'ANOVA à mesures répétées est la méthode adaptée lorsque les **mêmes sujets** sont mesurés à plusieurs reprises (temps ou conditions) : elle modélise explicitement la **corrélation intra-sujet** et évite les biais de l'ANOVA classique.
+:::
+
+# Contexte et limite de l'ANOVA classique
+
+Lorsque les **mêmes individus** sont mesurés à plusieurs reprises (dans le temps ou sous différentes conditions), l'ANOVA classique devient inadaptée : elle repose sur l'**indépendance des observations**, alors que les mesures répétées sur un même sujet introduisent une **dépendance statistique** (corrélation intra-sujet). Si cette structure n'est pas prise en compte, la variance est sous-estimée et les conclusions peuvent être biaisées (risque d'erreur de type I augmenté).
+
+# Définition et caractéristiques de l'ANOVA à mesures répétées
+
+L'**ANOVA à mesures répétées** (ANOVA-MR) est une extension de l'ANOVA conçue pour des données où les mêmes individus sont mesurés plusieurs fois. Elle permet de **comparer les moyennes** d'une variable quantitative à différents moments ou sous différentes conditions, en tenant compte **explicitement de la corrélation** entre mesures répétées.
+
+**Caractéristiques clés :**
+
+- **Facteur intra-sujet** : le facteur (temps, condition) varie à l'intérieur de chaque sujet ; chaque sujet est observé pour toutes les modalités.
+- **Contrôle de la variabilité inter-sujets** : on sépare la variance due aux différences entre individus (effet sujet) de la variance intra-sujet.
+- **Modélisation de la covariance** : la structure de corrélation entre mesures est prise en compte dans le modèle.
+- **Plus grande puissance** : pour un même nombre de sujets, la méthode améliore la capacité à détecter un effet réel du facteur intra-sujet.
+
+On distingue notamment : (1) l'ANOVA à **un facteur intra-sujet** (ex. évolution dans le temps pour tous les sujets) ; (2) le **modèle mixte (split-plot)**, avec au moins un facteur inter-sujets (ex. groupe) et un facteur intra-sujets (ex. période). Dans ce travail pratique, on se concentre sur ces deux types de plans, qui couvrent l'essentiel des applications courantes.
+
+# Position du problème et structure des données
+
+On dispose de $n$ sujets et de $t$ temps (ou conditions). La mesure pour le sujet $i$ au temps $j$ est notée $Y_{ij}$. La **variabilité totale** se décompose en trois composantes :
+
+$$SCT = SS_{\text{sujets}} + SS_{\text{temps}} + SS_{\text{erreur}}$$
+
+- **$SS_{\text{sujets}}$** : variabilité inter-individuelle (différences entre sujets).
+- **$SS_{\text{temps}}$** : effet du facteur intra-sujet (évolution dans le temps ou entre conditions).
+- **$SS_{\text{erreur}}$** : interaction sujet × temps (résiduelle).
+
+Les **hypothèses statistiques** testées sont : $H_0$ : $\mu_1 = \mu_2 = \cdots = \mu_t$ (aucun effet du facteur temps/condition) contre $H_1$ : il existe au moins deux niveaux dont les moyennes diffèrent.
+
+# Hypothèses du modèle et conditions de validité
+
+Pour que les tests soient valides, les hypothèses suivantes doivent être vérifiées :
+
+1. **Normalité** : pour chaque temps (ou condition), les résidus du modèle sont supposés distribués normalement. On peut l'évaluer par des graphiques (Q-Q plot) ou des tests (Shapiro-Wilk sur les résidus).
+
+2. **Homogénéité des variances** (facteurs inter-sujets) : lorsqu'il existe des groupes (ex. terreau, variété), les variances des erreurs doivent être égales entre groupes. Le test de **Levene** est utilisé pour cette vérification.
+
+3. **Sphéricité** (facteur intra-sujet) : les variances des **différences** entre toutes les paires de temps doivent être égales : $\text{Var}(Y_{ij} - Y_{ik})$ constante pour toutes les paires $(j,k)$. C'est l'hypothèse testée par le **test de Mauchly**. Si elle est rejetée ($p < 0{,}05$), on applique une **correction des degrés de liberté** (Greenhouse-Geisser ou Huynh-Feldt) pour garder des conclusions valides.
+
+::: {.callout-tip}
+## Ordre recommandé
+1. Vérifier la **normalité** des résidus (Q-Q plot, Shapiro-Wilk).  
+2. Effectuer le **test de Mauchly** (sphéricité).  
+3. En cas de rejet ($p < 0{,}05$), utiliser les **ddl corrigés** (Greenhouse-Geisser ou Huynh-Feldt).  
+4. Réaliser l'**ANOVA-MR** et les comparaisons post-hoc si nécessaire.
+:::
+
+# Test de Mauchly et corrections
+
+Le **test de Mauchly** évalue si la matrice de covariance des différences entre niveaux du facteur intra-sujet a une forme sphérique. Sous $H_0$, une transformation de la statistique $W$ suit approximativement une loi du $\chi^2$. Si $p < \alpha$ (souvent 0,05), on rejette l'hypothèse de sphéricité et on rapporte les résultats avec les **corrections de Greenhouse-Geisser** ou **Huynh-Feldt** sur les degrés de liberté (et donc sur la $p$-valeur).
+
+# Modèle mixte (split-plot) et plans factoriels
+
+Un plan **mixte** combine un **facteur inter-sujets** (ex. groupe, variété) et un **facteur intra-sujets** (ex. période). Le modèle inclut les effets principaux de ces facteurs, leur **interaction** (l'évolution dans le temps peut différer selon le groupe), et un effet aléatoire **sujet** (ou ID). Chaque effet fixe est testé contre le terme d'erreur approprié (inter-sujets ou intra-sujets). En cas d'**interaction significative**, on procède à des analyses des effets simples et à des comparaisons multiples (post-hoc, ex. Tukey ou Bonferroni).
+
+Cette approche permet d'étudier successivement l'effet d'**un seul facteur** sur la variable dépendante, puis l'effet de **deux facteurs** (avec ou sans interaction), en choisissant le terme d'erreur adapté à chaque effet.
+
+# Lien avec les chapitres suivants
+
+Les notions présentées ici (facteurs inter- et intra-sujets, hypothèses de normalité, homogénéité, sphéricité, test de Mauchly, corrections de Greenhouse–Geisser et Huynh–Feldt, modèles mixtes) sont mises en œuvre dans les deux chapitres appliqués. Le **chapitre 2** décrit les données de hauteur de plantes et explore graphiquement les relations entre fertilisant, variété et période. Le **chapitre 3** applique ensuite une ANOVA à mesures répétées sur ces données, en vérifiant les hypothèses et en interprétant les effets principaux, les interactions et les comparaisons post-hoc à la lumière du cadre théorique établi ici.

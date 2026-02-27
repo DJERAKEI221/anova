@@ -1,0 +1,4 @@
+"0","knitr::kable(resum_var, caption = ""Hauteur : moyenne (ET) par variété"")"
+"2","Avis : 'xfun::attr()' est obsolète.
+Utilisez plutôt ‘xfun::attr2()’.
+Voir help(""Deprecated"")"

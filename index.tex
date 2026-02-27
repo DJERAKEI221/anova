@@ -1,0 +1,2476 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+]{report}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={TRAVAIL PRATIQUE D'ANOVA},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{TRAVAIL PRATIQUE D'ANOVA}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter{Bienvenue}\label{bienvenue}
+
+\textbf{Agence nationale de la Statistique et de la Démographie (ANSD)}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1.45833in,height=\textheight]{images/ansd.png}
+
+}
+
+\caption{ANSD}
+
+\end{figure}%
+
+École nationale de la Statistique et de l'Analyse économique Pierre
+NDIAYE (ENSAE)
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1.45833in,height=\textheight]{images/ensae.png}
+
+}
+
+\caption{ENSAE}
+
+\end{figure}%
+
+TRAVAIL PRATIQUE D'ANOVA
+
+Analyse des effets de la variété et du type de fertilisant sur la
+croissance des plantes
+
+\textbf{Rédigé par :} Mistalengar Yves DJERAKEI, Moussa DIÉMÉ, Compaoré
+BASSIROU\\
+\emph{Élèves Ingénieurs Statisticiens Économistes (ISE)}
+
+\textbf{Sous l'encadrement de :} M. Carlos AKAKPOVI, Ingénieur
+Statisticien Économiste (ISE)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Bienvenue}\label{bienvenue-1}
+\addcontentsline{toc}{chapter}{Bienvenue}
+
+\markboth{Bienvenue}{Bienvenue}
+
+Ce livre présente une \textbf{analyse de la variance à mesures répétées}
+appliquée à l'étude de la \textbf{croissance des plantes} selon le type
+de terreau et la variété, à travers le temps.
+
+\section{Accès aux chapitres}\label{accuxe8s-aux-chapitres}
+
+Les trois chapitres sont accessibles via la \textbf{table des matières}
+(barre latérale gauche) ou directement ci-dessous :
+
+\begin{itemize}
+\item
+  \href{01-theorie-anova-mesures-repetees.qmd}{\textbf{Chapitre 1 :
+  Théorie sur l'ANOVA à mesures répétées}}\\
+  Contexte, définition, hypothèses (normalité, homogénéité, sphéricité),
+  test de Mauchly et modèle mixte (split-plot).
+\item
+  \href{02-analyse-descriptive.qmd}{\textbf{Chapitre 2 : Analyse
+  descriptive des variables d'étude}}\\
+  Import des données, tableau des moyennes et écarts-types, graphique
+  d'évolution (taille selon la période, par groupe et variété).
+\item
+  \href{03-facteurs-explicatifs.qmd}{\textbf{Chapitre 3 : Facteurs
+  explicatifs de la variable dépendante}}\\
+  Un facteur ; deux facteurs avec ou sans interaction ; modèle ANOVA
+  mixte, vérifications (Levene, Mauchly), comparaisons post-hoc et
+  conclusion.
+\end{itemize}
+
+\bookmarksetup{startatroot}
+
+\chapter{Théorie sur l'Analyse de la Variance à mesures
+répétées}\label{thuxe9orie-sur-lanalyse-de-la-variance-uxe0-mesures-ruxe9puxe9tuxe9es}
+
+Cadre conceptuel, hypothèses et modèles
+
+\hfill\break
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, colback=white, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, coltitle=black, colframe=quarto-callout-note-color-frame, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Idée clé}, arc=.35mm, bottomtitle=1mm, toprule=.15mm, breakable, bottomrule=.15mm, titlerule=0mm]
+
+L'ANOVA à mesures répétées est la méthode adaptée lorsque les
+\textbf{mêmes sujets} sont mesurés à plusieurs reprises (temps ou
+conditions) : elle modélise explicitement la \textbf{corrélation
+intra-sujet} et évite les biais de l'ANOVA classique.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Contexte et limite de l'ANOVA
+classique}\label{contexte-et-limite-de-lanova-classique}
+
+Lorsque les \textbf{mêmes individus} sont mesurés à plusieurs reprises
+(dans le temps ou sous différentes conditions), l'ANOVA classique
+devient inadaptée : elle repose sur l'\textbf{indépendance des
+observations}, alors que les mesures répétées sur un même sujet
+introduisent une \textbf{dépendance statistique} (corrélation
+intra-sujet). Si cette structure n'est pas prise en compte, la variance
+est sous-estimée et les conclusions peuvent être biaisées (risque
+d'erreur de type I augmenté).
+
+\bookmarksetup{startatroot}
+
+\chapter{Définition et caractéristiques de l'ANOVA à mesures
+répétées}\label{duxe9finition-et-caractuxe9ristiques-de-lanova-uxe0-mesures-ruxe9puxe9tuxe9es}
+
+L'\textbf{ANOVA à mesures répétées} (ANOVA-MR) est une extension de
+l'ANOVA conçue pour des données où les mêmes individus sont mesurés
+plusieurs fois. Elle permet de \textbf{comparer les moyennes} d'une
+variable quantitative à différents moments ou sous différentes
+conditions, en tenant compte \textbf{explicitement de la corrélation}
+entre mesures répétées.
+
+\textbf{Caractéristiques clés :}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Facteur intra-sujet} : le facteur (temps, condition) varie à
+  l'intérieur de chaque sujet ; chaque sujet est observé pour toutes les
+  modalités.
+\item
+  \textbf{Contrôle de la variabilité inter-sujets} : on sépare la
+  variance due aux différences entre individus (effet sujet) de la
+  variance intra-sujet.
+\item
+  \textbf{Modélisation de la covariance} : la structure de corrélation
+  entre mesures est prise en compte dans le modèle.
+\item
+  \textbf{Plus grande puissance} : pour un même nombre de sujets, la
+  méthode améliore la capacité à détecter un effet réel du facteur
+  intra-sujet.
+\end{itemize}
+
+On distingue notamment : (1) l'ANOVA à \textbf{un facteur intra-sujet}
+(ex. évolution dans le temps pour tous les sujets) ; (2) le
+\textbf{modèle mixte (split-plot)}, avec au moins un facteur
+inter-sujets (ex. groupe) et un facteur intra-sujets (ex. période). Dans
+ce travail pratique, on se concentre sur ces deux types de plans, qui
+couvrent l'essentiel des applications courantes.
+
+\bookmarksetup{startatroot}
+
+\chapter{Position du problème et structure des
+données}\label{position-du-probluxe8me-et-structure-des-donnuxe9es}
+
+On dispose de \(n\) sujets et de \(t\) temps (ou conditions). La mesure
+pour le sujet \(i\) au temps \(j\) est notée \(Y_{ij}\). La
+\textbf{variabilité totale} se décompose en trois composantes :
+
+\[SCT = SS_{\text{sujets}} + SS_{\text{temps}} + SS_{\text{erreur}}\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\(SS_{\text{sujets}}\)} : variabilité inter-individuelle
+  (différences entre sujets).
+\item
+  \textbf{\(SS_{\text{temps}}\)} : effet du facteur intra-sujet
+  (évolution dans le temps ou entre conditions).
+\item
+  \textbf{\(SS_{\text{erreur}}\)} : interaction sujet × temps
+  (résiduelle).
+\end{itemize}
+
+Les \textbf{hypothèses statistiques} testées sont : \(H_0\) :
+\(\mu_1 = \mu_2 = \cdots = \mu_t\) (aucun effet du facteur
+temps/condition) contre \(H_1\) : il existe au moins deux niveaux dont
+les moyennes diffèrent.
+
+\bookmarksetup{startatroot}
+
+\chapter{Hypothèses du modèle et conditions de
+validité}\label{hypothuxe8ses-du-moduxe8le-et-conditions-de-validituxe9}
+
+Pour que les tests soient valides, les hypothèses suivantes doivent être
+vérifiées :
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Normalité} : pour chaque temps (ou condition), les résidus du
+  modèle sont supposés distribués normalement. On peut l'évaluer par des
+  graphiques (Q-Q plot) ou des tests (Shapiro-Wilk sur les résidus).
+\item
+  \textbf{Homogénéité des variances} (facteurs inter-sujets) : lorsqu'il
+  existe des groupes (ex. terreau, variété), les variances des erreurs
+  doivent être égales entre groupes. Le test de \textbf{Levene} est
+  utilisé pour cette vérification.
+\item
+  \textbf{Sphéricité} (facteur intra-sujet) : les variances des
+  \textbf{différences} entre toutes les paires de temps doivent être
+  égales : \(\text{Var}(Y_{ij} - Y_{ik})\) constante pour toutes les
+  paires \((j,k)\). C'est l'hypothèse testée par le \textbf{test de
+  Mauchly}. Si elle est rejetée (\(p < 0{,}05\)), on applique une
+  \textbf{correction des degrés de liberté} (Greenhouse-Geisser ou
+  Huynh-Feldt) pour garder des conclusions valides.
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, colback=white, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Ordre recommandé}, arc=.35mm, bottomtitle=1mm, toprule=.15mm, breakable, bottomrule=.15mm, titlerule=0mm]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Vérifier la \textbf{normalité} des résidus (Q-Q plot, Shapiro-Wilk).\\
+\item
+  Effectuer le \textbf{test de Mauchly} (sphéricité).\\
+\item
+  En cas de rejet (\(p < 0{,}05\)), utiliser les \textbf{ddl corrigés}
+  (Greenhouse-Geisser ou Huynh-Feldt).\\
+\item
+  Réaliser l'\textbf{ANOVA-MR} et les comparaisons post-hoc si
+  nécessaire.
+\end{enumerate}
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Test de Mauchly et
+corrections}\label{test-de-mauchly-et-corrections}
+
+Le \textbf{test de Mauchly} évalue si la matrice de covariance des
+différences entre niveaux du facteur intra-sujet a une forme sphérique.
+Sous \(H_0\), une transformation de la statistique \(W\) suit
+approximativement une loi du \(\chi^2\). Si \(p < \alpha\) (souvent
+0,05), on rejette l'hypothèse de sphéricité et on rapporte les résultats
+avec les \textbf{corrections de Greenhouse-Geisser} ou
+\textbf{Huynh-Feldt} sur les degrés de liberté (et donc sur la
+\(p\)-valeur).
+
+\bookmarksetup{startatroot}
+
+\chapter{Modèle mixte (split-plot) et plans
+factoriels}\label{moduxe8le-mixte-split-plot-et-plans-factoriels}
+
+Un plan \textbf{mixte} combine un \textbf{facteur inter-sujets} (ex.
+groupe, variété) et un \textbf{facteur intra-sujets} (ex. période). Le
+modèle inclut les effets principaux de ces facteurs, leur
+\textbf{interaction} (l'évolution dans le temps peut différer selon le
+groupe), et un effet aléatoire \textbf{sujet} (ou ID). Chaque effet fixe
+est testé contre le terme d'erreur approprié (inter-sujets ou
+intra-sujets). En cas d'\textbf{interaction significative}, on procède à
+des analyses des effets simples et à des comparaisons multiples
+(post-hoc, ex. Tukey ou Bonferroni).
+
+Cette approche permet d'étudier successivement l'effet d'\textbf{un seul
+facteur} sur la variable dépendante, puis l'effet de \textbf{deux
+facteurs} (avec ou sans interaction), en choisissant le terme d'erreur
+adapté à chaque effet.
+
+\bookmarksetup{startatroot}
+
+\chapter{Lien avec les chapitres
+suivants}\label{lien-avec-les-chapitres-suivants}
+
+Les notions présentées ici (facteurs inter- et intra-sujets, hypothèses
+de normalité, homogénéité, sphéricité, test de Mauchly, corrections de
+Greenhouse--Geisser et Huynh--Feldt, modèles mixtes) sont mises en œuvre
+dans les deux chapitres appliqués. Le \textbf{chapitre 2} décrit les
+données de hauteur de plantes et explore graphiquement les relations
+entre fertilisant, variété et période. Le \textbf{chapitre 3} applique
+ensuite une ANOVA à mesures répétées sur ces données, en vérifiant les
+hypothèses et en interprétant les effets principaux, les interactions et
+les comparaisons post-hoc à la lumière du cadre théorique établi ici.
+
+\bookmarksetup{startatroot}
+
+\chapter{Analyse descriptive des variables
+d'étude}\label{analyse-descriptive-des-variables-duxe9tude}
+
+Données, moyennes et graphiques d'évolution
+
+\hfill\break
+
+Ce chapitre présente l'import des données de croissance, les
+statistiques descriptives (moyennes, écarts-types, effectifs) et
+plusieurs graphiques pour décrire la \textbf{hauteur} selon la période,
+le fertilisant (terreau) et la variété.
+
+\bookmarksetup{startatroot}
+
+\chapter{Import des données et
+préparation}\label{import-des-donnuxe9es-et-pruxe9paration}
+
+Le fichier \textbf{\texttt{donnees/donnees.xlsx}} est lu ; les variables
+sont \emph{fertilisant}, \emph{variete}, \emph{periode}, \emph{hauteur}.
+Plan : mesures répétées \textbf{T1--T4 pour Var1 et Var2} (et pour
+chaque fertilisant). Le facteur \textbf{periode} a pour modalités T1,
+T2, T3, T4. L'identifiant sujet (\emph{id}) est créé si absent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"gtsummary"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"gtsummary"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(gtsummary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Import : plan = mesures répétées T1–T4 pour Var1 et Var2 (colonnes : fertilisant, variete, periode, hauteur) {-}{-}{-}}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"readxl"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readxl"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"donnees/donnees.xlsx"}\NormalTok{)}
+
+\CommentTok{\# Hauteur en numérique (virgule décimale gérée)}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{hauteur }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{hauteur)))}
+
+\CommentTok{\# Identifiant sujet : un id par plante (même id pour les 4 périodes d\textquotesingle{}une même plante)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\StringTok{"id"} \SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(d)) \{}
+\NormalTok{  d }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{arrange}\NormalTok{(fertilisant, variete, periode) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(fertilisant, variete, periode) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{within\_subj =} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{id =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(fertilisant), }\StringTok{"\_"}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(variete), }\StringTok{"\_"}\NormalTok{, within\_subj))}
+\NormalTok{\}}
+
+\CommentTok{\# Facteurs}
+\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{periode     =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(periode), }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"T1"}\NormalTok{, }\StringTok{"T2"}\NormalTok{, }\StringTok{"T3"}\NormalTok{, }\StringTok{"T4"}\NormalTok{)),}
+    \AttributeTok{fertilisant =} \FunctionTok{factor}\NormalTok{(fertilisant, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Ma"}\NormalTok{, }\StringTok{"Ca"}\NormalTok{, }\StringTok{"An"}\NormalTok{)),}
+    \AttributeTok{variete     =} \FunctionTok{factor}\NormalTok{(variete),}
+    \AttributeTok{id          =} \FunctionTok{factor}\NormalTok{(id)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Aperçu du jeu de données (format long) {-}{-}{-}}
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tbl\_summary}\NormalTok{(}\AttributeTok{include =} \FunctionTok{c}\NormalTok{(fertilisant, variete, periode, hauteur), }\AttributeTok{statistic =} \FunctionTok{list}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{mean\} (\{sd\})"}\NormalTok{), }\AttributeTok{label =} \FunctionTok{list}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}} \StringTok{"Hauteur"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{modify\_caption}\NormalTok{(}\StringTok{"Résumé descriptif des variables (fertilisant, variété, période, hauteur)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lc@{}}
+\caption{Résumé descriptif des variables (fertilisant, variété, période,
+hauteur)}\tabularnewline
+\toprule\noalign{}
+\textbf{Characteristic} & \textbf{N = 253} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\textbf{Characteristic} & \textbf{N = 253} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+fertilisant & \\
+Ma & 102 (40\%) \\
+Ca & 73 (29\%) \\
+An & 78 (31\%) \\
+variete & \\
+Var1 & 129 (51\%) \\
+Var2 & 124 (49\%) \\
+periode & \\
+T1 & 78 (31\%) \\
+T2 & 57 (23\%) \\
+T3 & 63 (25\%) \\
+T4 & 55 (22\%) \\
+Hauteur & 34 (8) \\
+\end{longtable}
+
+\bookmarksetup{startatroot}
+
+\chapter{Structure des données}\label{structure-des-donnuxe9es}
+
+Nombre total d'observations, de sujets (plantes) et répartition par
+fertilisant et variété.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Effectifs : nombre d\textquotesingle{}observations et de sujets {-}{-}{-}}
+\NormalTok{n\_obs   }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(d)}
+\NormalTok{n\_sujets }\OtherTok{\textless{}{-}} \FunctionTok{n\_distinct}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{id)}
+\CommentTok{\# Répartition par fertilisant et variété (nombre de sujets uniques)}
+\NormalTok{sujets\_uniq }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{distinct}\NormalTok{(id, fertilisant, variete)}
+
+\NormalTok{sujets\_uniq }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tbl\_cross}\NormalTok{(}\AttributeTok{row =}\NormalTok{ fertilisant, }\AttributeTok{col =}\NormalTok{ variete, }\AttributeTok{margin =} \StringTok{"row"}\NormalTok{, }\AttributeTok{percent =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{modify\_caption}\NormalTok{(}\StringTok{"Nombre de sujets (plantes) par fertilisant (terreau) et variété"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lcc@{}}
+\caption{Nombre de sujets (plantes) par fertilisant (terreau) et
+variété}\tabularnewline
+\toprule\noalign{}
+& Var1 & Var2 \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+& Var1 & Var2 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+fertilisant & & \\
+Ma & 18 & 16 \\
+Ca & 12 & 11 \\
+An & 11 & 13 \\
+Total & 41 & 40 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{**Total :**"}\NormalTok{, n\_obs, }\StringTok{"observations,"}\NormalTok{, n\_sujets, }\StringTok{"sujets.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+**Total :** 253 observations, 81 sujets.
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\chapter{Résumé de la variable
+hauteur}\label{ruxe9sumuxe9-de-la-variable-hauteur}
+
+Statistiques globales (moyenne, écart-type, min, max) et par facteur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Résumé global de la variable hauteur {-}{-}{-}}
+\NormalTok{hauteur\_num }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{hauteur))}
+\NormalTok{resum\_global }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{Variable =} \StringTok{"Hauteur"}\NormalTok{,}
+  \AttributeTok{n =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hauteur\_num)),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Moyenne (ET)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f (\%.2f)"}\NormalTok{, }\FunctionTok{mean}\NormalTok{(hauteur\_num, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\FunctionTok{sd}\NormalTok{(hauteur\_num, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
+  \AttributeTok{Min =} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f"}\NormalTok{, }\FunctionTok{min}\NormalTok{(hauteur\_num, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
+  \AttributeTok{Max =} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f"}\NormalTok{, }\FunctionTok{max}\NormalTok{(hauteur\_num, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(resum\_global, }\AttributeTok{caption =} \StringTok{"Résumé global de la variable hauteur"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrlll@{}}
+\caption{Résumé global de la variable hauteur}\tabularnewline
+\toprule\noalign{}
+Variable & n & Moyenne (ET) & Min & Max \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Variable & n & Moyenne (ET) & Min & Max \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Hauteur & 253 & 34.27 (8.16) & 8.50 & 56.20 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Résumé de la hauteur par fertilisant, par variété et par période {-}{-}{-}}
+\NormalTok{resum\_grp }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(fertilisant) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(), }\StringTok{\textasciigrave{}}\AttributeTok{Moyenne (ET)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f (\%.2f)"}\NormalTok{, }\FunctionTok{mean}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\FunctionTok{sd}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+\NormalTok{resum\_var }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(variete) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(), }\StringTok{\textasciigrave{}}\AttributeTok{Moyenne (ET)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f (\%.2f)"}\NormalTok{, }\FunctionTok{mean}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\FunctionTok{sd}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+\NormalTok{resum\_per }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(periode) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(), }\StringTok{\textasciigrave{}}\AttributeTok{Moyenne (ET)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%.2f (\%.2f)"}\NormalTok{, }\FunctionTok{mean}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\FunctionTok{sd}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(resum\_grp, }\AttributeTok{caption =} \StringTok{"Hauteur : moyenne (ET) par fertilisant (terreau)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Hauteur : moyenne (ET) par fertilisant
+(terreau)}\tabularnewline
+\toprule\noalign{}
+fertilisant & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+fertilisant & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ma & 102 & 33.76 (7.63) \\
+Ca & 73 & 35.76 (7.45) \\
+An & 78 & 33.53 (9.31) \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(resum\_var, }\AttributeTok{caption =} \StringTok{"Hauteur : moyenne (ET) par variété"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Hauteur : moyenne (ET) par variété}\tabularnewline
+\toprule\noalign{}
+variete & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+variete & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Var1 & 129 & 32.04 (8.31) \\
+Var2 & 124 & 36.59 (7.35) \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(resum\_per, }\AttributeTok{caption =} \StringTok{"Hauteur : moyenne (ET) par période"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Hauteur : moyenne (ET) par période}\tabularnewline
+\toprule\noalign{}
+periode & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+periode & n & Moyenne (ET) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+T1 & 78 & 34.32 (9.19) \\
+T2 & 57 & 35.41 (6.92) \\
+T3 & 63 & 31.42 (7.89) \\
+T4 & 55 & 36.27 (7.38) \\
+\end{longtable}
+
+\bookmarksetup{startatroot}
+
+\chapter{Tableau des moyennes et écarts-types (fertilisant × variété ×
+période)}\label{tableau-des-moyennes-et-uxe9carts-types-fertilisant-variuxe9tuxe9-puxe9riode}
+
+Les statistiques descriptives de la \textbf{hauteur} sont calculées pour
+chaque combinaison de \emph{fertilisant}, \emph{variété} et
+\emph{période}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Tableau croisé fertilisant × variété × période : moyenne (ET) {-}{-}{-}}
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{fertilisant\_variete =} \FunctionTok{paste}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(fertilisant), }\FunctionTok{as.character}\NormalTok{(variete), }\AttributeTok{sep =} \StringTok{" × "}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tbl\_strata}\NormalTok{(}
+    \AttributeTok{strata =}\NormalTok{ fertilisant\_variete,}
+    \AttributeTok{.tbl\_fun =} \SpecialCharTok{\textasciitilde{}} \FunctionTok{tbl\_summary}\NormalTok{(.x, }\AttributeTok{by =}\NormalTok{ periode, }\AttributeTok{include =}\NormalTok{ hauteur, }\AttributeTok{statistic =} \FunctionTok{list}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{mean\} (\{sd\})"}\NormalTok{), }\AttributeTok{label =} \FunctionTok{list}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}} \StringTok{"Hauteur"}\NormalTok{)),}
+    \AttributeTok{.header =} \StringTok{"**\{strata\}**"}\NormalTok{,}
+    \AttributeTok{.combine\_with =} \StringTok{"tbl\_stack"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{modify\_caption}\NormalTok{(}\StringTok{"Moyennes et écarts{-}types de la hauteur par fertilisant, variété et période"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1474}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1684}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1684}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1579}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1579}}@{}}
+\caption{Moyennes et écarts-types de la hauteur par fertilisant, variété
+et période}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Group}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Characteristic}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T1}, N = 11
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T2}, N = 10
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T3}, N = 9
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T4}, N = 5
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Group}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Characteristic}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T1}, N = 11
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T2}, N = 10
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T3}, N = 9
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{T4}, N = 5
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{An × Var1} & Hauteur & 29 (10) & 34 (8) & 28 (8) & 35 (14) \\
+\textbf{An × Var2} & Hauteur & 40 (8) & 36 (7) & 32 (10) & 33 (6) \\
+\textbf{Ca × Var1} & Hauteur & 32 (7) & 35 (7) & 34 (4) & 34 (12) \\
+\textbf{Ca × Var2} & Hauteur & 40.6 (9.1) & 36.0 (5.8) & 37.2 (6.9) &
+40.3 (3.7) \\
+\textbf{Ma × Var1} & Hauteur & 28 (6) & 36 (8) & 28 (8) & 36 (6) \\
+\textbf{Ma × Var2} & Hauteur & 39.4 (6.5) & 33.1 (6.0) & 31.1 (5.9) &
+37.7 (4.6) \\
+\end{longtable}
+
+\bookmarksetup{startatroot}
+
+\chapter{Graphiques descriptifs}\label{graphiques-descriptifs}
+
+\section{Distribution de la hauteur par
+période}\label{distribution-de-la-hauteur-par-puxe9riode}
+
+Boîtes à moustaches pour comparer la distribution de la hauteur à chaque
+période.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(d, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ periode, }\AttributeTok{y =}\NormalTok{ hauteur, }\AttributeTok{fill =}\NormalTok{ periode)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Pastel1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Période"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Hauteur"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{02-analyse-descriptive_files/figure-pdf/ch2-boxplot-periode-1.pdf}
+
+}
+
+\caption{Distribution de la hauteur (boîtes à moustaches) par période.}
+
+\end{figure}%
+
+\section{Distribution de la taille par groupe
+(terreau)}\label{distribution-de-la-taille-par-groupe-terreau}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(d, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ fertilisant, }\AttributeTok{y =}\NormalTok{ hauteur, }\AttributeTok{fill =}\NormalTok{ fertilisant)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Fertilisant (terreau)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Hauteur"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{02-analyse-descriptive_files/figure-pdf/ch2-boxplot-groupe-1.pdf}
+
+}
+
+\caption{Distribution de la hauteur par fertilisant (terreau).}
+
+\end{figure}%
+
+\section{Graphique d'interaction (évolution selon la
+période)}\label{graphique-dinteraction-uxe9volution-selon-la-puxe9riode}
+
+Évolution des moyennes de \textbf{hauteur} en fonction de la
+\textbf{période}, avec des couleurs par \textbf{fertilisant} et des
+facettes par \textbf{variété}. Des courbes non parallèles suggèrent une
+interaction entre période et fertilisant (ou variété).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(fertilisant, variete, periode) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{hauteur\_moy =} \FunctionTok{mean}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ periode, }\AttributeTok{y =}\NormalTok{ hauteur\_moy, }\AttributeTok{colour =}\NormalTok{ fertilisant, }\AttributeTok{group =}\NormalTok{ fertilisant)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ variete, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Période"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Hauteur (moyenne)"}\NormalTok{,}
+    \AttributeTok{colour =} \StringTok{"Fertilisant (terreau)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{,}
+    \AttributeTok{strip.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"grey92"}\NormalTok{, }\AttributeTok{colour =} \ConstantTok{NA}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{02-analyse-descriptive_files/figure-pdf/ch2-plot-interaction-1.pdf}
+
+}
+
+\caption{Évolution de la hauteur (moyenne) selon la période, par
+fertilisant et par variété.}
+
+\end{figure}%
+
+\section{Synthèse descriptive}\label{synthuxe8se-descriptive}
+
+Le tableau et les graphiques ci-dessus permettent de repérer
+visuellement les combinaisons (fertilisant × variété × période) pour
+lesquelles la hauteur moyenne est la plus élevée ou la plus faible, et
+d'anticiper d'éventuelles interactions testées au chapitre 3.
+
+\bookmarksetup{startatroot}
+
+\chapter{Facteurs explicatifs de la variable
+dépendante}\label{facteurs-explicatifs-de-la-variable-duxe9pendante}
+
+Modèle linéaire (LM), validité et post-hoc
+
+\hfill\break
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, colback=white, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, coltitle=black, colframe=quarto-callout-important-color-frame, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Objectif du chapitre}, arc=.35mm, bottomtitle=1mm, toprule=.15mm, breakable, bottomrule=.15mm, titlerule=0mm]
+
+Identifier \textbf{quels facteurs} (groupe, variété, période)
+\textbf{expliquent} la variable dépendante \emph{taille}, en testant les
+effets principaux et les interactions (un facteur ; deux facteurs avec
+ou sans interaction), puis en réalisant les comparaisons post-hoc en cas
+d'effets significatifs.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Objectif}\label{objectif}
+
+Ce chapitre vise à \textbf{déterminer les facteurs qui peuvent expliquer
+la variable dépendante} (la hauteur des plantes). On distingue
+classiquement :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Un facteur} : on teste l'effet d'un seul facteur (ex.
+  fertilisant, ou variété, ou période) sur la variable dépendante.
+\item
+  \textbf{Deux facteurs avec ou sans interaction} : on teste les effets
+  de deux facteurs (ex. fertilisant et variété, ou fertilisant et
+  période) et leur interaction. Si l'interaction est significative,
+  l'effet d'un facteur dépend du niveau de l'autre ; sinon, les effets
+  principaux suffisent à interpréter les résultats.
+\end{itemize}
+
+Dans notre étude, la variable dépendante est la \textbf{hauteur} ; les
+facteurs sont le \textbf{fertilisant} (terreau : Ma, Ca, An), la
+\textbf{variété} (Var1, Var2) et la \textbf{période} (T1--T4). Les
+plantes sont toutes différentes (individus uniques), avec des mesures
+répétées dans le temps. On utilise un \textbf{modèle linéaire (LM)} à
+effets fixes : \textbf{fertilisant} (principal), \textbf{variété}
+(contrôle) et \textbf{période} ; chaque ligne des données correspond à
+une observation de hauteur.
+
+\bookmarksetup{startatroot}
+
+\chapter{Données et modèle linéaire
+(LM)}\label{donnuxe9es-et-moduxe8le-linuxe9aire-lm}
+
+Les mêmes données qu'au chapitre 2 sont chargées puis analysées avec un
+modèle \textbf{hauteur \textasciitilde{} fertilisant × variété +
+Error(id / période)} : effets fixes \emph{fertilisant} (3 terreaux),
+\emph{variété} (2 variétés), \emph{période} (T1--T4) et interactions ;
+effet aléatoire intercept par \emph{plante} (id). Tous les sujets sont
+inclus.
+
+\section{Explication de ce qui est fait dans le
+modèle}\label{explication-de-ce-qui-est-fait-dans-le-moduxe8le}
+
+Voici, dans l'ordre, ce que fait le chapitre en utilisant
+\textbf{uniquement une ANOVA à mesures répétées avec
+\texttt{afex::aov\_car}}.
+
+\textbf{1. Import et préparation des données}
+
+\begin{itemize}
+\tightlist
+\item
+  Lecture du fichier Excel \texttt{donnees/donnees.xlsx}.
+\item
+  Variables utilisées : \textbf{groupe} (terreau Ma, Ca, An),
+  \textbf{variete} (Var1, Var2), \textbf{periode} (T1--T4),
+  \textbf{taille} (variable à expliquer).
+\item
+  Conversion de \texttt{taille} en numérique en gérant les
+  \textbf{virgules décimales}.
+\item
+  Mise en facteur de \texttt{groupe}, \texttt{variete}, \texttt{periode}
+  avec les bons niveaux.
+\item
+  Création d'un identifiant \textbf{technique} \texttt{id} (une
+  étiquette par ligne) pour définir la structure des \textbf{mesures
+  répétées} dans le modèle (mais sans entrer comme facteur explicatif).
+\end{itemize}
+
+\textbf{2. Modèle ANOVA à mesures répétées (afex::aov\_car)}
+
+\begin{itemize}
+\tightlist
+\item
+  Le modèle est ajusté avec :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Variable dépendante (dv)} : \texttt{taille}.
+  \item
+    \textbf{Facteurs inter-sujets (between)} : \texttt{groupe} et
+    \texttt{variete} (chaque observation appartient à une seule
+    combinaison groupe × variété).
+  \item
+    \textbf{Facteur intra-sujet (within)} : \texttt{periode} (mêmes
+    plantes suivies à T1, T2, T3, T4).
+  \end{itemize}
+\item
+  Formule utilisée :\\
+  {[} \text{taille} \sim \text{groupe} \times \text{variete} +
+  \text{Error(id / periode)} {]}
+\item
+  \texttt{afex::aov\_car} calcule une \textbf{ANOVA de type III} avec,
+  pour chaque effet (groupe, variete, groupe×variete, etc.) :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    les \textbf{sommes de carrés},
+  \item
+    le \textbf{F} de Fisher,
+  \item
+    la \textbf{p-value},
+  \item
+    la \textbf{taille d'effet} ((\eta\^{}2) partiel, \texttt{pes}).
+  \end{itemize}
+\end{itemize}
+
+\textbf{3. Sphéricité et corrections (Mauchly, GG, HF)}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{summary()} du modèle fournit :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    le \textbf{test de Mauchly} de sphéricité pour les effets impliquant
+    \texttt{periode},
+  \item
+    les \textbf{corrections de Greenhouse--Geisser (GG)} et
+    \textbf{Huynh--Feldt (HF)} si la sphéricité n'est pas respectée.
+  \end{itemize}
+\item
+  L'interprétation des effets de \texttt{periode} et des interactions
+  avec \texttt{periode} se base sur ces p-values corrigées.
+\end{itemize}
+
+\textbf{4. Vérifications des conditions de validité}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Normalité des résidus} : graphiques Q--Q et histogramme des
+  résidus de l'ANOVA à mesures répétées.
+\item
+  \textbf{Homogénéité des variances (Levene)} : test de Levene sur la
+  \textbf{taille moyenne par combinaison groupe × variété × id}, afin de
+  vérifier l'égalité des variances entre conditions.
+\end{itemize}
+
+\textbf{5. Comparaisons post-hoc (emmeans)}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Moyennes marginales (groupe × variété)} : estimation des
+  moyennes de \texttt{taille} pour chaque combinaison groupe--variété,
+  avec erreurs standard et intervalles de confiance à 95 \%.
+\item
+  \textbf{Comparaisons deux à deux (Tukey)} :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Comparaisons entre toutes les combinaisons \textbf{groupe × variété}
+    (effets globaux).
+  \item
+    Comparaisons \textbf{par période} : mêmes contrastes, mais
+    séparément pour T1, T2, T3, T4, pour repérer les périodes où les
+    différences sont significatives.
+  \end{itemize}
+\end{itemize}
+
+\textbf{Résumé} : cette ANOVA à mesures répétées teste si le
+\textbf{terreau} (\texttt{groupe}), la \textbf{variété}
+(\texttt{variete}) et la \textbf{période} (\texttt{periode}) -- ainsi
+que leurs interactions -- expliquent la \textbf{taille}, en respectant
+la structure de mesures répétées. Les diagnostics (normalité, Levene,
+sphéricité) justifient l'usage des tests F et des post-hoc de Tukey, qui
+permettent ensuite de conclure sur les conditions (terreau × variété,
+par période) donnant les tailles les plus élevées.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(emmeans)}
+\FunctionTok{library}\NormalTok{(car)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"afex"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"afex"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(afex)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"gtsummary"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"gtsummary"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(gtsummary)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Import : plan = mesures répétées T1–T4 pour Var1 et Var2, dans chaque fertilisant {-}{-}{-}}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"readxl"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readxl"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"donnees/donnees.xlsx"}\NormalTok{)}
+
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{hauteur }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{hauteur)))}
+\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{periode     =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(periode), }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"T1"}\NormalTok{, }\StringTok{"T2"}\NormalTok{, }\StringTok{"T3"}\NormalTok{, }\StringTok{"T4"}\NormalTok{)),}
+    \AttributeTok{fertilisant =} \FunctionTok{factor}\NormalTok{(fertilisant, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Ma"}\NormalTok{, }\StringTok{"Ca"}\NormalTok{, }\StringTok{"An"}\NormalTok{)),}
+    \AttributeTok{variete     =} \FunctionTok{factor}\NormalTok{(variete)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Création d\textquotesingle{}identifiants "sujets" artificiels par (fertilisant, variete, rang)}
+  \CommentTok{\# pour simuler des mesures répétées comme dans l\textquotesingle{}exemple DABIRE}
+  \FunctionTok{group\_by}\NormalTok{(fertilisant, variete, periode) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(fertilisant, variete, periode, }\AttributeTok{.by\_group =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{rang =} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{id =} \FunctionTok{interaction}\NormalTok{(fertilisant, variete, rang, }\AttributeTok{drop =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{id =} \FunctionTok{factor}\NormalTok{(id)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Description du modèle
+utilisé}\label{description-du-moduxe8le-utilisuxe9}
+
+Le modèle utilisé est une \textbf{ANOVA à mesures répétées} implémentée
+avec \texttt{afex::aov\_car}. Chaque ligne du tableau correspond à
+\textbf{une observation de hauteur pour une combinaison (fertilisant,
+variété, période)}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Élément
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Variable dépendante} & \texttt{hauteur} (hauteur des plantes,
+quantitative) \\
+\textbf{Facteurs inter-sujets} & \texttt{fertilisant} (3 terreaux : Ma,
+Ca, An), \texttt{variete} (2 variétés) \\
+\textbf{Facteur intra-sujet} & \texttt{periode} (T1--T4, mesures
+répétées) \\
+\textbf{Identifiant (id)} & Étiquette technique construite par
+combinaison \texttt{(fertilisant,\ variete,\ rang)} pour regrouper
+artificiellement les mesures répétées dans
+\texttt{Error(id\ /\ periode)} \\
+\textbf{Formule} &
+\texttt{hauteur\ \textasciitilde{}\ fertilisant\ *\ variete\ +\ Error(id\ /\ periode)} \\
+\textbf{Options} & Type III ; corrections \textbf{Greenhouse--Geisser} /
+\textbf{Huynh--Feldt} pour les termes impliquant \texttt{periode} ;
+\textbf{η² partiel (pes)} comme taille d'effet \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} ANOVA à mesures répétées avec afex::aov\_car {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\# On fixe le type de sommes de carrés à III (classique en présence d\textquotesingle{}interactions)}
+\NormalTok{afex}\SpecialCharTok{::}\FunctionTok{afex\_options}\NormalTok{(}\AttributeTok{type =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# Ajustement du modèle :}
+\CommentTok{\# {-} hauteur : variable dépendante}
+\CommentTok{\# {-} fertilisant * variete : effets fixes inter{-}sujets et leur interaction}
+\CommentTok{\# {-} Error(id / periode) : structure de mesures répétées (effet de periode imbriqué dans id)}
+\CommentTok{\# {-} na.rm = TRUE : les observations manquantes (périodes non observées pour certains individus)}
+\CommentTok{\#   sont retirées de l\textquotesingle{}analyse, comme suggéré par le message d\textquotesingle{}erreur d\textquotesingle{}afex.}
+\NormalTok{anova\_rm }\OtherTok{\textless{}{-}}\NormalTok{ afex}\SpecialCharTok{::}\FunctionTok{aov\_car}\NormalTok{(}
+\NormalTok{  hauteur }\SpecialCharTok{\textasciitilde{}}\NormalTok{ fertilisant }\SpecialCharTok{*}\NormalTok{ variete }\SpecialCharTok{+} \FunctionTok{Error}\NormalTok{(id }\SpecialCharTok{/}\NormalTok{ periode),}
+  \AttributeTok{data  =}\NormalTok{ d,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}
+\NormalTok{)}
+
+\CommentTok{\# Tableau ANOVA "propre" (nice) :}
+\CommentTok{\# {-} fournit F, p{-}value, et η² partiel (pes) pour chaque effet}
+\NormalTok{tab\_rm }\OtherTok{\textless{}{-}} \FunctionTok{nice}\NormalTok{(anova\_rm, }\AttributeTok{es =} \StringTok{"pes"}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+\NormalTok{  tab\_rm,}
+  \AttributeTok{caption =} \StringTok{"ANOVA à mesures répétées (afex::aov\_car) : effets de fertilisant, variété, période et interactions, avec η² partiel."}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.4118}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0882}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1324}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0735}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1176}}@{}}
+\caption{ANOVA à mesures répétées (afex::aov\_car) : effets de
+fertilisant, variété, période et interactions, avec η²
+partiel.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Effect
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+df
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+MSE
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+F
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+pes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p.value
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Effect
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+df
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+MSE
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+F
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+pes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p.value
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+fertilisant & 2, 35 & 50.78 & 4.53 * & .205 & .018 \\
+variete & 1, 35 & 50.78 & 10.51 ** & .231 & .003 \\
+fertilisant:variete & 2, 35 & 50.78 & 0.09 & .005 & .916 \\
+periode & 2.59, 90.49 & 73.59 & 5.29 ** & .131 & .003 \\
+fertilisant:periode & 5.17, 90.49 & 73.59 & 0.49 & .027 & .792 \\
+variete:periode & 2.59, 90.49 & 73.59 & 4.77 ** & .120 & .006 \\
+fertilisant:variete:periode & 5.17, 90.49 & 73.59 & 1.05 & .056 &
+.396 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Résumé complet du modèle :}
+\CommentTok{\# {-} inclut le test de Mauchly (sphéricité)}
+\CommentTok{\# {-} et les corrections GG / HF si nécessaire}
+\FunctionTok{summary}\NormalTok{(anova\_rm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
+
+                            Sum Sq num Df Error SS den Df   F value    Pr(>F)
+(Intercept)                 168766      1   1777.2     35 3323.6960 < 2.2e-16
+fertilisant                    460      2   1777.2     35    4.5250  0.017870
+variete                        534      1   1777.2     35   10.5127  0.002605
+fertilisant:variete              9      2   1777.2     35    0.0878  0.916122
+periode                       1006      3   6659.0    105    5.2876  0.001956
+fertilisant:periode            185      6   6659.0    105    0.4853  0.818020
+variete:periode                908      3   6659.0    105    4.7733  0.003694
+fertilisant:variete:periode    399      6   6659.0    105    1.0478  0.398892
+                               
+(Intercept)                 ***
+fertilisant                 *  
+variete                     ** 
+fertilisant:variete            
+periode                     ** 
+fertilisant:periode            
+variete:periode             ** 
+fertilisant:variete:periode    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Mauchly Tests for Sphericity
+
+                            Test statistic p-value
+periode                            0.80217 0.19052
+fertilisant:periode                0.80217 0.19052
+variete:periode                    0.80217 0.19052
+fertilisant:variete:periode        0.80217 0.19052
+
+
+Greenhouse-Geisser and Huynh-Feldt Corrections
+ for Departure from Sphericity
+
+                             GG eps Pr(>F[GG])   
+periode                     0.86184   0.003361 **
+fertilisant:periode         0.86184   0.792291   
+variete:periode             0.86184   0.005876 **
+fertilisant:variete:periode 0.86184   0.395740   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+                               HF eps  Pr(>F[HF])
+periode                     0.9365994 0.002506562
+fertilisant:periode         0.9365994 0.806780783
+variete:periode             0.9365994 0.004568788
+fertilisant:variete:periode 0.9365994 0.397572844
+\end{verbatim}
+
+En résumé, la hauteur dépend significativement du \textbf{fertilisant}
+et de la \textbf{variété}, ainsi que de la \textbf{période} de mesure,
+avec une interaction significative entre \textbf{variété et période} ;
+les interactions impliquant le fertilisant ne sont pas significatives.
+
+Les tests de \textbf{Mauchly} ne sont pas significatifs, ce qui indique
+que l'hypothèse de sphéricité est raisonnable ; les corrections de
+Greenhouse--Geisser et Huynh--Feldt confirment la significativité de
+l'effet de la \textbf{période} et de l'interaction \textbf{variété ×
+période}, tandis que les termes avec le fertilisant restent non
+significatifs.
+
+\bookmarksetup{startatroot}
+
+\chapter{Vérification des conditions de
+validité}\label{vuxe9rification-des-conditions-de-validituxe9}
+
+\section{Normalité des résidus}\label{normalituxe9-des-ruxe9sidus}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On extrait les résidus du modèle sous{-}jacent (lm) contenu dans l\textquotesingle{}objet afex}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{residuals}\NormalTok{(anova\_rm}\SpecialCharTok{$}\NormalTok{lm)}
+
+\CommentTok{\# Affichage côte à côte :}
+\CommentTok{\# {-} Q{-}Q plot : vérification de l\textquotesingle{}alignement des résidus sur la droite théorique}
+\CommentTok{\# {-} Histogramme : forme globale (approximation gaussienne attendue)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{qqnorm}\NormalTok{(res, }\AttributeTok{main =} \StringTok{"Q{-}Q des résidus"}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(res)}
+\FunctionTok{hist}\NormalTok{(res, }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{, }\AttributeTok{main =} \StringTok{"Distribution des résidus"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Résidus"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{03-facteurs-explicatifs_files/figure-pdf/normalite-1.pdf}
+
+}
+
+\caption{Graphique Q-Q et histogramme des résidus de l'ANOVA à mesures
+répétées.}
+
+\end{figure}%
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# Test formel de normalité (Shapiro{-}Wilk)}
+\NormalTok{shapiro\_res }\OtherTok{\textless{}{-}} \FunctionTok{shapiro.test}\NormalTok{(res)}
+\NormalTok{shapiro\_res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Shapiro-Wilk normality test
+
+data:  res
+W = 0.96094, p-value = 0.0001458
+\end{verbatim}
+
+Les graphes de résidus indiquent une distribution globalement symétrique
+et proche d'une droite normale, mais le test de Shapiro--Wilk est
+significatif (p-value très petite), ce qui met en évidence une déviation
+statistique de la normalité ; compte tenu de la taille d'échantillon et
+de l'homogénéité des variances, l'ANOVA reste toutefois utilisable avec
+prudence.
+
+\section{Homogénéité des variances
+(Levene)}\label{homoguxe9nuxe9ituxe9-des-variances-levene}
+
+Le test de Levene est réalisé sur la \textbf{hauteur moyenne par
+combinaison (id, fertilisant, variete)}, ce qui revient à comparer les
+variances entre conditions expérimentales (fertilisant × variété),
+indépendamment de la période.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Agrégation : moyenne de hauteur par id, fertilisant, variété}
+\NormalTok{d\_mean }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(id, fertilisant, variete) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{hauteur\_moy =} \FunctionTok{mean}\NormalTok{(hauteur, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Test de Levene sur les variances de hauteur moyenne entre combinaisons fertilisant × variété}
+\NormalTok{lev }\OtherTok{\textless{}{-}}\NormalTok{ car}\SpecialCharTok{::}\FunctionTok{leveneTest}\NormalTok{(hauteur\_moy }\SpecialCharTok{\textasciitilde{}}\NormalTok{ fertilisant }\SpecialCharTok{*}\NormalTok{ variete, }\AttributeTok{data =}\NormalTok{ d\_mean)}
+
+\CommentTok{\# Mise en forme d\textquotesingle{}un tableau lisible}
+\NormalTok{lev\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(lev)}
+\NormalTok{lev\_df }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\AttributeTok{Source =} \FunctionTok{rownames}\NormalTok{(lev\_df), lev\_df)}
+\FunctionTok{rownames}\NormalTok{(lev\_df) }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\FunctionTok{names}\NormalTok{(lev\_df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Source"}\NormalTok{, }\StringTok{"Ddl"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)}
+\NormalTok{lev\_df[[}\StringTok{"p{-}value"}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(lev\_df[[}\StringTok{"p{-}value"}\NormalTok{]]), }\StringTok{"—"}\NormalTok{, }\FunctionTok{format.pval}\NormalTok{(lev\_df[[}\StringTok{"p{-}value"}\NormalTok{]], }\AttributeTok{digits =} \DecValTok{3}\NormalTok{))}
+\NormalTok{lev\_df[[}\StringTok{"F"}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(lev\_df[[}\StringTok{"F"}\NormalTok{]]), }\StringTok{"—"}\NormalTok{, }\FunctionTok{format}\NormalTok{(}\FunctionTok{round}\NormalTok{(lev\_df[[}\StringTok{"F"}\NormalTok{]], }\DecValTok{4}\NormalTok{), }\AttributeTok{nsmall =} \DecValTok{4}\NormalTok{))}
+\NormalTok{lev\_df[}\FunctionTok{is.na}\NormalTok{(lev\_df)] }\OtherTok{\textless{}{-}} \StringTok{"—"}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+\NormalTok{  lev\_df,}
+  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{),}
+  \AttributeTok{caption =} \StringTok{"Test de Levene sur la hauteur moyenne (homogénéité des variances entre groupes de fertilisant et de variété)."}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{Test de Levene sur la hauteur moyenne (homogénéité des
+variances entre groupes de fertilisant et de variété).}\tabularnewline
+\toprule\noalign{}
+Source & Ddl & F & p-value \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Source & Ddl & F & p-value \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+group & 5 & 0.8640 & 0.509 \\
+& 75 & --- & --- \\
+\end{longtable}
+
+Le test de Levene n'étant pas significatif, on peut considérer que les
+variances de hauteur sont similaires entre les combinaisons de
+fertilisant et de variété.
+
+\bookmarksetup{startatroot}
+
+\chapter{Comparaisons post-hoc}\label{comparaisons-post-hoc}
+
+\bookmarksetup{startatroot}
+
+\chapter{Comparaisons post-hoc}\label{comparaisons-post-hoc-1}
+
+Lorsque des effets ou interactions sont significatifs, les comparaisons
+deux à deux (Tukey) permettent d'identifier les combinaisons
+\textbf{groupe × variété} et les \textbf{périodes} dont les moyennes
+diffèrent significativement.
+
+\section{Moyennes marginales (fertilisant ×
+variété)}\label{moyennes-marginales-fertilisant-variuxe9tuxe9}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Moyennes marginales (effet global de fertilisant × variété, toutes périodes confondues)}
+\NormalTok{emm\_gv }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(anova\_rm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ fertilisant }\SpecialCharTok{*}\NormalTok{ variete)}
+
+\CommentTok{\# Extraction sous forme de data.frame et arrondi pour la présentation}
+\NormalTok{emm\_gv\_df }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(emm\_gv) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+\NormalTok{emm\_gv\_df }\OtherTok{\textless{}{-}}\NormalTok{ emm\_gv\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{emmean   =} \FunctionTok{round}\NormalTok{(emmean, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{SE       =} \FunctionTok{round}\NormalTok{(SE, }\DecValTok{3}\NormalTok{),}
+    \AttributeTok{lower.CL =} \FunctionTok{round}\NormalTok{(lower.CL, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{upper.CL =} \FunctionTok{round}\NormalTok{(upper.CL, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  )}
+
+\FunctionTok{names}\NormalTok{(emm\_gv\_df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Fertilisant"}\NormalTok{, }\StringTok{"Variété"}\NormalTok{, }\StringTok{"Moyenne"}\NormalTok{, }\StringTok{"ESM"}\NormalTok{, }\StringTok{"Ddl"}\NormalTok{, }\StringTok{"IC inf."}\NormalTok{, }\StringTok{"IC sup."}\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+\NormalTok{  emm\_gv\_df[, }\FunctionTok{c}\NormalTok{(}\StringTok{"Fertilisant"}\NormalTok{, }\StringTok{"Variété"}\NormalTok{, }\StringTok{"Moyenne"}\NormalTok{, }\StringTok{"ESM"}\NormalTok{, }\StringTok{"IC inf."}\NormalTok{, }\StringTok{"IC sup."}\NormalTok{)],}
+  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{),}
+  \AttributeTok{caption =} \StringTok{"Moyennes marginales (et IC 95 \%) pour fertilisant × variété (toutes périodes confondues)."}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}llrrrr@{}}
+\caption{Moyennes marginales (et IC 95 \%) pour fertilisant × variété
+(toutes périodes confondues).}\tabularnewline
+\toprule\noalign{}
+Fertilisant & Variété & Moyenne & ESM & IC inf. & IC sup. \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Fertilisant & Variété & Moyenne & ESM & IC inf. & IC sup. \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ma & Var1 & 31.58 & 1.029 & 29.49 & 33.67 \\
+Ca & Var1 & 34.61 & 1.347 & 31.88 & 37.34 \\
+An & Var1 & 30.04 & 1.593 & 26.81 & 33.27 \\
+Ma & Var2 & 36.03 & 1.781 & 32.41 & 39.64 \\
+Ca & Var2 & 37.86 & 1.455 & 34.91 & 40.81 \\
+An & Var2 & 33.82 & 1.347 & 31.08 & 36.55 \\
+\end{longtable}
+
+Ces moyennes montrent que, en moyenne sur toutes les périodes, la
+variété~2 produit des plantes plus hautes que la variété~1 pour un même
+fertilisant, avec des valeurs maximales observées pour les combinaisons
+\texttt{Ca–Var2} et \texttt{Ma–Var2}.
+
+\section{Comparaisons deux à deux : fertilisant × variété
+(Tukey)}\label{comparaisons-deux-uxe0-deux-fertilisant-variuxe9tuxe9-tukey}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Comparaisons toutes paires de combinaisons fertilisant × variété (corrigées de Tukey)}
+\NormalTok{ph\_gv }\OtherTok{\textless{}{-}} \FunctionTok{pairs}\NormalTok{(emm\_gv, }\AttributeTok{adjust =} \StringTok{"tukey"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+\NormalTok{pval }\OtherTok{\textless{}{-}}\NormalTok{ ph\_gv}\SpecialCharTok{$}\NormalTok{p.value}
+
+\NormalTok{ph\_gv }\OtherTok{\textless{}{-}}\NormalTok{ ph\_gv }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{estimate =} \FunctionTok{round}\NormalTok{(estimate, }\DecValTok{3}\NormalTok{),}
+    \AttributeTok{SE       =} \FunctionTok{round}\NormalTok{(SE, }\DecValTok{3}\NormalTok{),}
+    \AttributeTok{t.ratio  =} \FunctionTok{round}\NormalTok{(t.ratio, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{signif   =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      pval }\SpecialCharTok{\textless{}} \FloatTok{0.001} \SpecialCharTok{\textasciitilde{}} \StringTok{"***"}\NormalTok{,}
+\NormalTok{      pval }\SpecialCharTok{\textless{}} \FloatTok{0.01}  \SpecialCharTok{\textasciitilde{}} \StringTok{"**"}\NormalTok{,}
+\NormalTok{      pval }\SpecialCharTok{\textless{}} \FloatTok{0.05}  \SpecialCharTok{\textasciitilde{}} \StringTok{"*"}\NormalTok{,}
+      \ConstantTok{TRUE}         \SpecialCharTok{\textasciitilde{}} \StringTok{""}
+\NormalTok{    ),}
+    \AttributeTok{p.value =} \FunctionTok{format.pval}\NormalTok{(p.value, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{eps =} \FloatTok{0.001}\NormalTok{)}
+\NormalTok{  )}
+
+\FunctionTok{names}\NormalTok{(ph\_gv) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Contraste"}\NormalTok{, }\StringTok{"Différence"}\NormalTok{, }\StringTok{"ESM"}\NormalTok{, }\StringTok{"Ddl"}\NormalTok{, }\StringTok{"t"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{, }\StringTok{"Signif."}\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+\NormalTok{  ph\_gv,}
+  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
+  \AttributeTok{caption =} \StringTok{"Comparaisons post{-}hoc Tukey : fertilisant × variété (toutes périodes confondues). * p \textless{} 0,05 ; ** p \textless{} 0,01 ; *** p \textless{} 0,001."}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrrrrc@{}}
+\caption{Comparaisons post-hoc Tukey : fertilisant × variété (toutes
+périodes confondues). * p \textless{} 0,05 ; ** p \textless{} 0,01 ; ***
+p \textless{} 0,001.}\tabularnewline
+\toprule\noalign{}
+Contraste & Différence & ESM & Ddl & t & p-value & Signif. \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Contraste & Différence & ESM & Ddl & t & p-value & Signif. \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ma Var1 - Ca Var1 & -3.029 & 1.694 & 35 & -1.79 & 0.4863 & \\
+Ma Var1 - An Var1 & 1.541 & 1.896 & 35 & 0.81 & 0.9633 & \\
+Ma Var1 - Ma Var2 & -4.444 & 2.057 & 35 & -2.16 & 0.2816 & \\
+Ma Var1 - Ca Var2 & -6.277 & 1.781 & 35 & -3.52 & 0.0141 & * \\
+Ma Var1 - An Var2 & -2.237 & 1.694 & 35 & -1.32 & 0.7722 & \\
+Ca Var1 - An Var1 & 4.571 & 2.086 & 35 & 2.19 & 0.2675 & \\
+Ca Var1 - Ma Var2 & -1.414 & 2.233 & 35 & -0.63 & 0.9877 & \\
+Ca Var1 - Ca Var2 & -3.248 & 1.982 & 35 & -1.64 & 0.5798 & \\
+Ca Var1 - An Var2 & 0.793 & 1.904 & 35 & 0.42 & 0.9983 & \\
+An Var1 - Ma Var2 & -5.985 & 2.390 & 35 & -2.50 & 0.1505 & \\
+An Var1 - Ca Var2 & -7.818 & 2.157 & 35 & -3.62 & 0.0109 & * \\
+An Var1 - An Var2 & -3.778 & 2.086 & 35 & -1.81 & 0.4722 & \\
+Ma Var2 - Ca Var2 & -1.833 & 2.300 & 35 & -0.80 & 0.9661 & \\
+Ma Var2 - An Var2 & 2.207 & 2.233 & 35 & 0.99 & 0.9186 & \\
+Ca Var2 - An Var2 & 4.040 & 1.982 & 35 & 2.04 & 0.3422 & \\
+\end{longtable}
+
+Après correction de Tukey, seules les combinaisons \texttt{Ca–Var2} vs
+\texttt{Ma–Var1} et \texttt{Ca–Var2} vs \texttt{An–Var1} présentent des
+différences significatives de hauteur, ce qui confirme un avantage
+marqué de \texttt{Ca–Var2} par rapport à ces deux couples.
+
+\section{Comparaisons deux à deux par période
+(Tukey)}\label{comparaisons-deux-uxe0-deux-par-puxe9riode-tukey}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Effets de fertilisant × variété examinés séparément pour chaque période (T1, T2, T3, T4)}
+\NormalTok{emm\_per }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(anova\_rm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ fertilisant }\SpecialCharTok{*}\NormalTok{ variete }\SpecialCharTok{|}\NormalTok{ periode)}
+\NormalTok{ph\_per }\OtherTok{\textless{}{-}} \FunctionTok{pairs}\NormalTok{(emm\_per, }\AttributeTok{adjust =} \StringTok{"tukey"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+\NormalTok{pval\_per }\OtherTok{\textless{}{-}}\NormalTok{ ph\_per}\SpecialCharTok{$}\NormalTok{p.value}
+
+\NormalTok{ph\_per }\OtherTok{\textless{}{-}}\NormalTok{ ph\_per }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{estimate =} \FunctionTok{round}\NormalTok{(estimate, }\DecValTok{3}\NormalTok{),}
+    \AttributeTok{SE       =} \FunctionTok{round}\NormalTok{(SE, }\DecValTok{3}\NormalTok{),}
+    \AttributeTok{t.ratio  =} \FunctionTok{round}\NormalTok{(t.ratio, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{signif   =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      pval\_per }\SpecialCharTok{\textless{}} \FloatTok{0.001} \SpecialCharTok{\textasciitilde{}} \StringTok{"***"}\NormalTok{,}
+\NormalTok{      pval\_per }\SpecialCharTok{\textless{}} \FloatTok{0.01}  \SpecialCharTok{\textasciitilde{}} \StringTok{"**"}\NormalTok{,}
+\NormalTok{      pval\_per }\SpecialCharTok{\textless{}} \FloatTok{0.05}  \SpecialCharTok{\textasciitilde{}} \StringTok{"*"}\NormalTok{,}
+      \ConstantTok{TRUE}             \SpecialCharTok{\textasciitilde{}} \StringTok{""}
+\NormalTok{    ),}
+    \AttributeTok{p.value =} \FunctionTok{format.pval}\NormalTok{(p.value, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{eps =} \FloatTok{0.001}\NormalTok{)}
+\NormalTok{  )}
+
+\FunctionTok{names}\NormalTok{(ph\_per) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Contraste"}\NormalTok{, }\StringTok{"Différence"}\NormalTok{, }\StringTok{"ESM"}\NormalTok{, }\StringTok{"Ddl"}\NormalTok{, }\StringTok{"t"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{, }\StringTok{"Signif."}\NormalTok{, }\StringTok{"Période"}\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+\NormalTok{  ph\_per[, }\FunctionTok{c}\NormalTok{(}\StringTok{"Période"}\NormalTok{, }\StringTok{"Contraste"}\NormalTok{, }\StringTok{"Différence"}\NormalTok{, }\StringTok{"ESM"}\NormalTok{, }\StringTok{"t"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{, }\StringTok{"Signif."}\NormalTok{)],}
+  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
+  \AttributeTok{caption =} \StringTok{"Comparaisons post{-}hoc Tukey par période. * p \textless{} 0,05 ; ** p \textless{} 0,01 ; *** p \textless{} 0,001."}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1231}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2769}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1692}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1231}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0462}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1231}}
+  >{\centering\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1385}}@{}}
+\caption{Comparaisons post-hoc Tukey par période. * p \textless{} 0,05 ;
+** p \textless{} 0,01 ; *** p \textless{} 0,001.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Période
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contraste
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Différence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+ESM
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+t
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+p-value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Signif.
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Période
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contraste
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Différence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+ESM
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+t
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+p-value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Signif.
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+& Ma Var1 - Ca Var1 & T1 & -7.761 & 35 & -2.00 & 0.3646 \\
+& Ma Var1 - An Var1 & T1 & 2.705 & 35 & 0.62 & 0.9886 \\
+* & Ma Var1 - Ma Var2 & T1 & -15.525 & 35 & -3.29 & 0.0256 \\
+& Ma Var1 - Ca Var2 & T1 & -12.308 & 35 & -3.01 & 0.0501 \\
+* & Ma Var1 - An Var2 & T1 & -14.004 & 35 & -3.60 & 0.0115 \\
+& Ca Var1 - An Var1 & T1 & 10.466 & 35 & 2.19 & 0.2693 \\
+& Ca Var1 - Ma Var2 & T1 & -7.764 & 35 & -1.52 & 0.6568 \\
+& Ca Var1 - Ca Var2 & T1 & -4.548 & 35 & -1.00 & 0.9148 \\
+& Ca Var1 - An Var2 & T1 & -6.243 & 35 & -1.43 & 0.7095 \\
+* & An Var1 - Ma Var2 & T1 & -18.230 & 35 & -3.33 & 0.0234 \\
+* & An Var1 - Ca Var2 & T1 & -15.013 & 35 & -3.03 & 0.0477 \\
+* & An Var1 - An Var2 & T1 & -16.709 & 35 & -3.49 & 0.0153 \\
+& Ma Var2 - Ca Var2 & T1 & 3.217 & 35 & 0.61 & 0.9896 \\
+& Ma Var2 - An Var2 & T1 & 1.521 & 35 & 0.30 & 0.9997 \\
+& Ca Var2 - An Var2 & T1 & -1.695 & 35 & -0.37 & 0.9990 \\
+& Ma Var1 - Ca Var1 & T2 & -0.293 & 35 & -0.08 & 1.0000 \\
+& Ma Var1 - An Var1 & T2 & 0.250 & 35 & 0.06 & 1.0000 \\
+& Ma Var1 - Ma Var2 & T2 & 2.550 & 35 & 0.60 & 0.9907 \\
+& Ma Var1 - Ca Var2 & T2 & -1.833 & 35 & -0.49 & 0.9961 \\
+& Ma Var1 - An Var2 & T2 & 0.907 & 35 & 0.26 & 0.9998 \\
+& Ca Var1 - An Var1 & T2 & 0.543 & 35 & 0.12 & 1.0000 \\
+& Ca Var1 - Ma Var2 & T2 & 2.843 & 35 & 0.61 & 0.9895 \\
+& Ca Var1 - Ca Var2 & T2 & -1.540 & 35 & -0.37 & 0.9990 \\
+& Ca Var1 - An Var2 & T2 & 1.200 & 35 & 0.30 & 0.9996 \\
+& An Var1 - Ma Var2 & T2 & 2.300 & 35 & 0.46 & 0.9971 \\
+& An Var1 - Ca Var2 & T2 & -2.083 & 35 & -0.46 & 0.9971 \\
+& An Var1 - An Var2 & T2 & 0.657 & 35 & 0.15 & 1.0000 \\
+& Ma Var2 - Ca Var2 & T2 & -4.383 & 35 & -0.92 & 0.9399 \\
+& Ma Var2 - An Var2 & T2 & -1.643 & 35 & -0.35 & 0.9992 \\
+& Ca Var2 - An Var2 & T2 & 2.740 & 35 & 0.66 & 0.9847 \\
+& Ma Var1 - Ca Var1 & T3 & -6.010 & 35 & -1.75 & 0.5072 \\
+& Ma Var1 - An Var1 & T3 & 1.853 & 35 & 0.48 & 0.9965 \\
+& Ma Var1 - Ma Var2 & T3 & -2.092 & 35 & -0.50 & 0.9957 \\
+& Ma Var1 - Ca Var2 & T3 & -6.633 & 35 & -1.84 & 0.4536 \\
+& Ma Var1 - An Var2 & T3 & 1.162 & 35 & 0.34 & 0.9994 \\
+& Ca Var1 - An Var1 & T3 & 7.863 & 35 & 1.86 & 0.4402 \\
+& Ca Var1 - Ma Var2 & T3 & 3.918 & 35 & 0.87 & 0.9517 \\
+& Ca Var1 - Ca Var2 & T3 & -0.624 & 35 & -0.16 & 1.0000 \\
+& Ca Var1 - An Var2 & T3 & 7.171 & 35 & 1.86 & 0.4412 \\
+& An Var1 - Ma Var2 & T3 & -3.945 & 35 & -0.82 & 0.9626 \\
+& An Var1 - Ca Var2 & T3 & -8.487 & 35 & -1.95 & 0.3930 \\
+& An Var1 - An Var2 & T3 & -0.691 & 35 & -0.16 & 1.0000 \\
+& Ma Var2 - Ca Var2 & T3 & -4.542 & 35 & -0.98 & 0.9223 \\
+& Ma Var2 - An Var2 & T3 & 3.254 & 35 & 0.72 & 0.9781 \\
+& Ca Var2 - An Var2 & T3 & 7.795 & 35 & 1.94 & 0.3933 \\
+& Ma Var1 - Ca Var1 & T4 & 1.945 & 35 & 0.50 & 0.9959 \\
+& Ma Var1 - An Var1 & T4 & 1.357 & 35 & 0.31 & 0.9996 \\
+& Ma Var1 - Ma Var2 & T4 & -2.708 & 35 & -0.57 & 0.9923 \\
+& Ma Var1 - Ca Var2 & T4 & -4.333 & 35 & -1.06 & 0.8950 \\
+& Ma Var1 - An Var2 & T4 & 2.988 & 35 & 0.77 & 0.9715 \\
+& Ca Var1 - An Var1 & T4 & -0.589 & 35 & -0.12 & 1.0000 \\
+& Ca Var1 - Ma Var2 & T4 & -4.654 & 35 & -0.90 & 0.9426 \\
+& Ca Var1 - Ca Var2 & T4 & -6.279 & 35 & -1.38 & 0.7409 \\
+& Ca Var1 - An Var2 & T4 & 1.043 & 35 & 0.24 & 0.9999 \\
+& An Var1 - Ma Var2 & T4 & -4.065 & 35 & -0.74 & 0.9756 \\
+& An Var1 - Ca Var2 & T4 & -5.690 & 35 & -1.15 & 0.8589 \\
+& An Var1 - An Var2 & T4 & 1.631 & 35 & 0.34 & 0.9993 \\
+& Ma Var2 - Ca Var2 & T4 & -1.625 & 35 & -0.31 & 0.9996 \\
+& Ma Var2 - An Var2 & T4 & 5.696 & 35 & 1.11 & 0.8749 \\
+& Ca Var2 - An Var2 & T4 & 7.321 & 35 & 1.60 & 0.6015 \\
+\end{longtable}
+
+À la période T1, plusieurs contrastes sont significatifs et indiquent un
+net avantage de la variété~2 pour certains fertilisants, alors qu'aux
+périodes T2, T3 et T4 aucune comparaison fertilisant × variété n'est
+significative, ce qui suggère un rapprochement des hauteurs entre
+combinaisons au fil du temps.
+
+\bookmarksetup{startatroot}
+
+\chapter{Modèles ANOVA à mesures répétées (structure type
+DABIRE)}\label{moduxe8les-anova-uxe0-mesures-ruxe9puxe9tuxe9es-structure-type-dabire}
+
+Dans cette section, on implémente \textbf{exactement le même type de
+modèles} que dans le rapport de DABIRE (ANOVA par période, puis ANOVA à
+mesures répétées avec \texttt{car::Anova}), en utilisant directement les
+variables \texttt{fertilisant}, \texttt{variete}, \texttt{periode} et
+\texttt{hauteur} de la base.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{requireNamespace}\NormalTok{(}\StringTok{"nortest"}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"nortest"}\NormalTok{, }\AttributeTok{repos =} \StringTok{"https://cloud.r{-}project.org"}\NormalTok{, }\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(nortest)}
+\FunctionTok{library}\NormalTok{(rstatix)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Import des mêmes données que précédemment}
+\NormalTok{d2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"donnees/donnees.xlsx"}\NormalTok{)}
+
+\CommentTok{\# Conversion des virgules décimales en points et mise en forme des facteurs}
+\NormalTok{d2}\SpecialCharTok{$}\NormalTok{hauteur }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(d2}\SpecialCharTok{$}\NormalTok{hauteur)))}
+
+\NormalTok{d2 }\OtherTok{\textless{}{-}}\NormalTok{ d2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{fertilisant =} \FunctionTok{factor}\NormalTok{(fertilisant),               }\CommentTok{\# Ma, Ca, An}
+    \AttributeTok{variete     =} \FunctionTok{factor}\NormalTok{(variete),                   }\CommentTok{\# Var1, Var2}
+    \AttributeTok{periode     =} \FunctionTok{factor}\NormalTok{(periode, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"T1"}\NormalTok{,}\StringTok{"T2"}\NormalTok{,}\StringTok{"T3"}\NormalTok{,}\StringTok{"T4"}\NormalTok{))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Modélisation : ANOVA par période + modèle à mesures
+répétées}\label{moduxe9lisation-anova-par-puxe9riode-moduxe8le-uxe0-mesures-ruxe9puxe9tuxe9es}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Création d\textquotesingle{}IDs artificiels par (fertilisant, variete, periode)}
+\NormalTok{d2\_id }\OtherTok{\textless{}{-}}\NormalTok{ d2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(fertilisant, variete, periode) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(No, }\AttributeTok{.by\_group =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{rang =} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{id =} \FunctionTok{interaction}\NormalTok{(fertilisant, variete, rang, }\AttributeTok{drop =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# Passage au format large : une ligne = un "sujet", colonnes t1..t4}
+\NormalTok{base }\OtherTok{\textless{}{-}}\NormalTok{ d2\_id }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{periode\_mesure =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{recode}\NormalTok{(}
+      \FunctionTok{as.character}\NormalTok{(periode),}
+      \StringTok{"T1"} \OtherTok{=} \StringTok{"t1"}\NormalTok{,}
+      \StringTok{"T2"} \OtherTok{=} \StringTok{"t2"}\NormalTok{,}
+      \StringTok{"T3"} \OtherTok{=} \StringTok{"t3"}\NormalTok{,}
+      \StringTok{"T4"} \OtherTok{=} \StringTok{"t4"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(id, fertilisant, variete, periode\_mesure, hauteur) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from  =}\NormalTok{ periode\_mesure,}
+    \AttributeTok{values\_from =}\NormalTok{ hauteur}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(id)}
+
+\CommentTok{\# Matrice de réponses hauteur (t1..t4) et facteurs}
+\NormalTok{base}\SpecialCharTok{$}\NormalTok{hauteur    }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(base[, }\FunctionTok{c}\NormalTok{(}\StringTok{"t1"}\NormalTok{,}\StringTok{"t2"}\NormalTok{,}\StringTok{"t3"}\NormalTok{,}\StringTok{"t4"}\NormalTok{)])}
+\NormalTok{base}\SpecialCharTok{$}\NormalTok{fertilisant }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(base}\SpecialCharTok{$}\NormalTok{fertilisant)}
+\NormalTok{base}\SpecialCharTok{$}\NormalTok{variete     }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(base}\SpecialCharTok{$}\NormalTok{variete)}
+
+\FunctionTok{attach}\NormalTok{(base)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{1. Effet du fertilisant à chaque
+période}\label{effet-du-fertilisant-uxe0-chaque-puxe9riode}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.hauteur.fertilisant }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}}\NormalTok{ fertilisant)}
+\NormalTok{H\_fert }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(mod.hauteur.fertilisant))}
+\NormalTok{H\_fert}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ Response t1 :
+            Df Sum Sq Mean Sq F value Pr(>F)
+fertilisant  2  258.3  129.15  1.2451 0.2994
+Residuals   38 3941.9  103.73               
+
+ Response t2 :
+            Df  Sum Sq Mean Sq F value Pr(>F)
+fertilisant  2   23.87  11.933   0.232 0.7941
+Residuals   38 1954.41  51.432               
+
+ Response t3 :
+            Df  Sum Sq Mean Sq F value  Pr(>F)  
+fertilisant  2  415.77 207.886  4.3114 0.02054 *
+Residuals   38 1832.28  48.218                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ Response t4 :
+            Df  Sum Sq Mean Sq F value Pr(>F)
+fertilisant  2   82.58  41.291  0.6244  0.541
+Residuals   38 2513.09  66.134               
+
+40 observations effacées parce que manquantes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LM\_fert }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(mod.hauteur.fertilisant)}
+\NormalTok{LM\_fert}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Response t1 :
+
+Call:
+lm(formula = t1 ~ fertilisant)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-25.7667  -5.7667  -0.1063   6.2333  19.1154 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     34.267      2.940  11.655  4.1e-14 ***
+fertilisantCa    2.818      4.077   0.691    0.494    
+fertilisantMa   -3.160      3.889  -0.813    0.422    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 10.18 on 38 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.0615,    Adjusted R-squared:  0.0121 
+F-statistic: 1.245 on 2 and 38 DF,  p-value: 0.2994
+
+
+Response t2 :
+
+Call:
+lm(formula = t2 ~ fertilisant)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-21.317  -2.654   1.688   4.483   9.988 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   35.016667   2.070261  16.914   <2e-16 ***
+fertilisantCa  1.637179   2.870935   0.570    0.572    
+fertilisantMa -0.004167   2.738697  -0.002    0.999    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.172 on 38 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.01206,   Adjusted R-squared:  -0.03993 
+F-statistic: 0.232 on 2 and 38 DF,  p-value: 0.7941
+
+
+Response t3 :
+
+Call:
+lm(formula = t3 ~ fertilisant)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.5562  -3.3563   0.9437   4.9167  12.4167 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     26.083      2.005  13.012 1.41e-15 ***
+fertilisantCa    7.747      2.780   2.787  0.00826 ** 
+fertilisantMa    1.973      2.652   0.744  0.46145    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.944 on 38 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.1849,    Adjusted R-squared:  0.1421 
+F-statistic: 4.311 on 2 and 38 DF,  p-value: 0.02054
+
+
+Response t4 :
+
+Call:
+lm(formula = t4 ~ fertilisant)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.369  -2.108   1.631   4.131  12.392 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     33.608      2.348  14.316   <2e-16 ***
+fertilisantCa    3.261      3.256   1.002    0.323    
+fertilisantMa    2.985      3.106   0.961    0.342    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.132 on 38 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.03182,   Adjusted R-squared:  -0.01914 
+F-statistic: 0.6244 on 2 and 38 DF,  p-value: 0.541
+\end{verbatim}
+
+Ces analyses univariées montrent que l'effet du \textbf{fertilisant} sur
+la hauteur n'est significatif qu'à la période T3, où le fertilisant Ca
+donne des plantes plus hautes que le fertilisant de référence, alors
+qu'aux périodes T1, T2 et T4 les différences entre fertilisants ne sont
+pas statistiquement détectables.
+
+\subsection{2. Effet de la variété à chaque
+période}\label{effet-de-la-variuxe9tuxe9-uxe0-chaque-puxe9riode}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.hauteur.variete }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}}\NormalTok{ variete)}
+\NormalTok{H\_var }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(mod.hauteur.variete))}
+\NormalTok{H\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ Response t1 :
+            Df Sum Sq Mean Sq F value    Pr(>F)    
+variete      1 1448.1 1448.12  20.522 5.447e-05 ***
+Residuals   39 2752.0   70.57                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ Response t2 :
+            Df  Sum Sq Mean Sq F value Pr(>F)
+variete      1    1.29   1.288  0.0254 0.8742
+Residuals   39 1976.98  50.692               
+
+ Response t3 :
+            Df  Sum Sq Mean Sq F value Pr(>F)
+variete      1    9.72   9.718  0.1693  0.683
+Residuals   39 2238.34  57.393               
+
+ Response t4 :
+            Df  Sum Sq Mean Sq F value Pr(>F)
+variete      1   31.75  31.752   0.483 0.4912
+Residuals   39 2563.92  65.741               
+
+40 observations effacées parce que manquantes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LM\_var }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(mod.hauteur.variete)}
+\NormalTok{LM\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Response t1 :
+
+Call:
+lm(formula = t1 ~ variete)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-20.425  -5.488   2.012   5.012  15.212 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   28.925      1.715   16.87  < 2e-16 ***
+varieteVar2   12.063      2.663    4.53 5.45e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.4 on 39 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.3448,    Adjusted R-squared:  0.328 
+F-statistic: 20.52 on 1 and 39 DF,  p-value: 5.447e-05
+
+
+Response t2 :
+
+Call:
+lm(formula = t2 ~ variete)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-21.623  -2.324   1.677   4.317   9.877 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  35.6833     1.4533  24.553   <2e-16 ***
+varieteVar2  -0.3598     2.2570  -0.159    0.874    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.12 on 39 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.0006512, Adjusted R-squared:  -0.02497 
+F-statistic: 0.02541 on 1 and 39 DF,  p-value: 0.8742
+
+
+Response t3 :
+
+Call:
+lm(formula = t3 ~ variete)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-17.40  -3.40   1.60   4.50  12.11 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  28.9000     1.5464  18.688   <2e-16 ***
+varieteVar2   0.9882     2.4016   0.411    0.683    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.576 on 39 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.004323,  Adjusted R-squared:  -0.02121 
+F-statistic: 0.1693 on 1 and 39 DF,  p-value: 0.683
+
+
+Response t4 :
+
+Call:
+lm(formula = t4 ~ variete)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.567  -2.567   1.933   5.147  11.233 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   35.067      1.655  21.188   <2e-16 ***
+varieteVar2    1.786      2.570   0.695    0.491    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.108 on 39 degrees of freedom
+  (40 observations effacées parce que manquantes)
+Multiple R-squared:  0.01223,   Adjusted R-squared:  -0.01309 
+F-statistic: 0.483 on 1 and 39 DF,  p-value: 0.4912
+\end{verbatim}
+
+On observe un effet très net de la \textbf{variété} à T1, où la
+variété~2 produit des plantes sensiblement plus hautes que la variété~1,
+alors qu'aux périodes T2, T3 et T4 les hauteurs des deux variétés
+deviennent statistiquement similaires.
+
+\subsection{3. Effet d'interaction variété × fertilisant à chaque
+période}\label{effet-dinteraction-variuxe9tuxe9-fertilisant-uxe0-chaque-puxe9riode}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.hauteur.interaction }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(hauteur }\SpecialCharTok{\textasciitilde{}}\NormalTok{ variete }\SpecialCharTok{*}\NormalTok{ fertilisant)}
+\NormalTok{H\_int }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(mod.hauteur.interaction))}
+\NormalTok{H\_int}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ Response t1 :
+                    Df  Sum Sq Mean Sq F value   Pr(>F)    
+variete              1 1448.12 1448.12 21.6812 4.51e-05 ***
+fertilisant          2  132.98   66.49  0.9955   0.3798    
+variete:fertilisant  2  281.37  140.68  2.1063   0.1368    
+Residuals           35 2337.70   66.79                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ Response t2 :
+                    Df  Sum Sq Mean Sq F value Pr(>F)
+variete              1    1.29   1.288  0.0234 0.8793
+fertilisant          2   24.88  12.440  0.2261 0.7988
+variete:fertilisant  2   26.13  13.065  0.2374 0.7899
+Residuals           35 1925.97  55.028               
+
+ Response t3 :
+                    Df  Sum Sq Mean Sq F value  Pr(>F)  
+variete              1    9.72   9.718  0.1873 0.66787  
+fertilisant          2  417.67 208.834  4.0238 0.02674 *
+variete:fertilisant  2    4.16   2.082  0.0401 0.96073  
+Residuals           35 1816.51  51.900                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ Response t4 :
+                    Df  Sum Sq Mean Sq F value Pr(>F)
+variete              1   31.75  31.752  0.4717 0.4967
+fertilisant          2  111.98  55.991  0.8318 0.4437
+variete:fertilisant  2   95.97  47.987  0.7129 0.4972
+Residuals           35 2355.96  67.313               
+
+40 observations effacées parce que manquantes
+\end{verbatim}
+
+L'interaction \textbf{variété × fertilisant} n'est significative à
+aucune période, ce qui suggère que, à instant donné, l'effet de la
+variété est globalement parallèle d'un fertilisant à l'autre.
+
+\subsection{\texorpdfstring{4. Modèle global à mesures répétées avec
+\texttt{car::Anova}}{4. Modèle global à mesures répétées avec car::Anova}}\label{moduxe8le-global-uxe0-mesures-ruxe9puxe9tuxe9es-avec-caranova}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fact.temps }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TEMPS =} \FunctionTok{as.factor}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{))}
+
+\NormalTok{mod.hauteur.tps.interaction }\OtherTok{\textless{}{-}} \FunctionTok{Anova}\NormalTok{(}
+\NormalTok{  mod.hauteur.interaction,}
+  \AttributeTok{idata   =}\NormalTok{ fact.temps,}
+  \AttributeTok{idesign =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ TEMPS,}
+  \AttributeTok{type    =} \StringTok{"III"}\NormalTok{,}
+  \AttributeTok{test    =} \StringTok{"Wilks"}
+\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(mod.hauteur.tps.interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Type III Repeated Measures MANOVA Tests:
+
+------------------------------------------
+ 
+Term: (Intercept) 
+
+ Response transformation matrix:
+   (Intercept)
+t1           1
+t2           1
+t3           1
+t4           1
+
+Sum of squares and products for the hypothesis:
+            (Intercept)
+(Intercept)    72192.13
+
+Multivariate Tests: (Intercept)
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1  0.910358 355.4402      1     35 < 2.22e-16 ***
+Wilks             1  0.089642 355.4402      1     35 < 2.22e-16 ***
+Hotelling-Lawley  1 10.155434 355.4402      1     35 < 2.22e-16 ***
+Roy               1 10.155434 355.4402      1     35 < 2.22e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+------------------------------------------
+ 
+Term: variete 
+
+ Response transformation matrix:
+   (Intercept)
+t1           1
+t2           1
+t3           1
+t4           1
+
+Sum of squares and products for the hypothesis:
+            (Intercept)
+(Intercept)    666.0362
+
+Multivariate Tests: variete
+                 Df test stat approx F num Df den Df   Pr(>F)  
+Pillai            1 0.0856665  3.27925      1     35 0.078752 .
+Wilks             1 0.9143335  3.27925      1     35 0.078752 .
+Hotelling-Lawley  1 0.0936929  3.27925      1     35 0.078752 .
+Roy               1 0.0936929  3.27925      1     35 0.078752 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+------------------------------------------
+ 
+Term: fertilisant 
+
+ Response transformation matrix:
+   (Intercept)
+t1           1
+t2           1
+t3           1
+t4           1
+
+Sum of squares and products for the hypothesis:
+            (Intercept)
+(Intercept)    1096.433
+
+Multivariate Tests: fertilisant
+                 Df test stat approx F num Df den Df   Pr(>F)  
+Pillai            2 0.1336274 2.699162      2     35 0.081252 .
+Wilks             2 0.8663726 2.699162      2     35 0.081252 .
+Hotelling-Lawley  2 0.1542378 2.699162      2     35 0.081252 .
+Roy               2 0.1542378 2.699162      2     35 0.081252 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+------------------------------------------
+ 
+Term: variete:fertilisant 
+
+ Response transformation matrix:
+   (Intercept)
+t1           1
+t2           1
+t3           1
+t4           1
+
+Sum of squares and products for the hypothesis:
+            (Intercept)
+(Intercept)    35.67558
+
+Multivariate Tests: variete:fertilisant
+                 Df test stat   approx F num Df den Df  Pr(>F)
+Pillai            2 0.0049935 0.08782492      2     35 0.91612
+Wilks             2 0.9950065 0.08782492      2     35 0.91612
+Hotelling-Lawley  2 0.0050186 0.08782492      2     35 0.91612
+Roy               2 0.0050186 0.08782492      2     35 0.91612
+
+------------------------------------------
+ 
+Term: TEMPS 
+
+ Response transformation matrix:
+   TEMPS1 TEMPS2 TEMPS3
+t1      1      0      0
+t2      0      1      0
+t3      0      0      1
+t4     -1     -1     -1
+
+Sum of squares and products for the hypothesis:
+        TEMPS1  TEMPS2  TEMPS3
+TEMPS1 504.008 -42.168 445.776
+TEMPS2 -42.168   3.528 -37.296
+TEMPS3 445.776 -37.296 394.272
+
+Multivariate Tests: TEMPS
+                 Df test stat approx F num Df den Df   Pr(>F)  
+Pillai            1 0.2300553  3.28674      3     33 0.032752 *
+Wilks             1 0.7699447  3.28674      3     33 0.032752 *
+Hotelling-Lawley  1 0.2987946  3.28674      3     33 0.032752 *
+Roy               1 0.2987946  3.28674      3     33 0.032752 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+------------------------------------------
+ 
+Term: variete:TEMPS 
+
+ Response transformation matrix:
+   TEMPS1 TEMPS2 TEMPS3
+t1      1      0      0
+t2      0      1      0
+t3      0      0      1
+t4     -1     -1     -1
+
+Sum of squares and products for the hypothesis:
+          TEMPS1    TEMPS2     TEMPS3
+TEMPS1 981.03717 52.116167 124.253500
+TEMPS2  52.11617  2.768595   6.600786
+TEMPS3 124.25350  6.600786  15.737357
+
+Multivariate Tests: variete:TEMPS
+                 Df test stat approx F num Df den Df   Pr(>F)  
+Pillai            1 0.2275214 3.239876      3     33 0.034423 *
+Wilks             1 0.7724786 3.239876      3     33 0.034423 *
+Hotelling-Lawley  1 0.2945342 3.239876      3     33 0.034423 *
+Roy               1 0.2945342 3.239876      3     33 0.034423 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+------------------------------------------
+ 
+Term: fertilisant:TEMPS 
+
+ Response transformation matrix:
+   TEMPS1 TEMPS2 TEMPS3
+t1      1      0      0
+t2      0      1      0
+t3      0      0      1
+t4     -1     -1     -1
+
+Sum of squares and products for the hypothesis:
+          TEMPS1   TEMPS2    TEMPS3
+TEMPS1 512.46860 90.53914 408.14814
+TEMPS2  90.53914 22.46038  74.88305
+TEMPS3 408.14814 74.88305 326.25438
+
+Multivariate Tests: fertilisant:TEMPS
+                 Df test stat approx F num Df den Df  Pr(>F)
+Pillai            2 0.1644683 1.015495      6     68 0.42274
+Wilks             2 0.8358609 1.031664      6     66 0.41287
+Hotelling-Lawley  2 0.1959775 1.045213      6     64 0.40482
+Roy               2 0.1939470 2.198066      3     34 0.10623
+
+------------------------------------------
+ 
+Term: variete:fertilisant:TEMPS 
+
+ Response transformation matrix:
+   TEMPS1 TEMPS2 TEMPS3
+t1      1      0      0
+t2      0      1      0
+t3      0      0      1
+t4     -1     -1     -1
+
+Sum of squares and products for the hypothesis:
+         TEMPS1    TEMPS2   TEMPS3
+TEMPS1 668.4031 143.01790 258.1318
+TEMPS2 143.0179  71.05914  61.6922
+TEMPS3 258.1318  61.69220 100.7198
+
+Multivariate Tests: variete:fertilisant:TEMPS
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            2 0.1508520 0.9245641      6     68 0.48303
+Wilks             2 0.8505399 0.9273876      6     66 0.48129
+Hotelling-Lawley  2 0.1740872 0.9284653      6     64 0.48078
+Roy               2 0.1641155 1.8599762      3     34 0.15499
+
+Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
+
+                           Sum Sq num Df Error SS den Df  F value  Pr(>F)    
+(Intercept)               18048.0      1   1777.2     35 355.4402 < 2e-16 ***
+variete                     166.5      1   1777.2     35   3.2792 0.07875 .  
+fertilisant                 274.1      2   1777.2     35   2.6992 0.08125 .  
+variete:fertilisant           8.9      2   1777.2     35   0.0878 0.91612    
+TEMPS                       493.2      3   6659.0    105   2.5923 0.05660 .  
+variete:TEMPS               658.2      3   6659.0    105   3.4594 0.01905 *  
+fertilisant:TEMPS           359.1      6   6659.0    105   0.9437 0.46720    
+variete:fertilisant:TEMPS   398.7      6   6659.0    105   1.0478 0.39889    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Mauchly Tests for Sphericity
+
+                          Test statistic p-value
+TEMPS                            0.80217 0.19052
+variete:TEMPS                    0.80217 0.19052
+fertilisant:TEMPS                0.80217 0.19052
+variete:fertilisant:TEMPS        0.80217 0.19052
+
+
+Greenhouse-Geisser and Huynh-Feldt Corrections
+ for Departure from Sphericity
+
+                           GG eps Pr(>F[GG])  
+TEMPS                     0.86184    0.06600 .
+variete:TEMPS             0.86184    0.02503 *
+fertilisant:TEMPS         0.86184    0.45889  
+variete:fertilisant:TEMPS 0.86184    0.39574  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+                             HF eps Pr(>F[HF])
+TEMPS                     0.9365994 0.06072900
+variete:TEMPS             0.9365994 0.02159004
+fertilisant:TEMPS         0.9365994 0.46356203
+variete:fertilisant:TEMPS 0.9365994 0.39757284
+\end{verbatim}
+
+Les tests multivariés confirment un effet global du \textbf{temps} et
+une interaction significative \textbf{variété × temps}, indiquant que
+l'écart entre variétés varie au cours des quatre mesures, tandis que les
+interactions impliquant le fertilisant avec le temps restent non
+significatives.
+
+\bookmarksetup{startatroot}
+
+\chapter{Conclusion}\label{conclusion}
+
+Cette \textbf{ANOVA à mesures répétées} (implémentée à la fois avec
+\texttt{afex::aov\_car} et avec la structure multivariée de
+\texttt{car::Anova}) permet de tester si les facteurs \textbf{terreau}
+(\texttt{groupe} / \texttt{fertilisant}), \textbf{variété}
+(\texttt{variete}) et \textbf{période} (\texttt{periode} /
+\texttt{TEMPS}), ainsi que leurs interactions, expliquent la variable
+dépendante \textbf{taille}. Après vérification des hypothèses (normalité
+des résidus, homogénéité des variances, sphéricité et corrections
+associées), l'interprétation des effets significatifs et des
+\textbf{comparaisons post-hoc} permet d'identifier les combinaisons
+terreau × variété et les périodes qui conduisent aux plus fortes
+hauteurs de plantes.
+
+
+
+
+\end{document}

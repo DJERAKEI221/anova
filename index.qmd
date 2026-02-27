@@ -1,0 +1,57 @@
+---
+title: "Bienvenue"
+subtitle: ""
+---
+
+::: {.presentation-block}
+
+::: {.institution-item}
+**Agence nationale de la Statistique et de la Démographie (ANSD)**
+
+::: {.logo-center}
+![ANSD](images/ansd.png){width=140px}
+:::
+:::
+
+::: {.institution-spacer}
+:::
+
+
+<p style="text-align: center;"><strong>École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE (ENSAE)</strong></p>
+
+::: {.logo-center}
+![ENSAE](images/ensae.png){width=140px}
+:::
+:::
+
+<p style="text-align: center;"><strong>TRAVAIL PRATIQUE D'ANOVA</strong></p>
+
+
+<p style="text-align: center;"><strong>Analyse des effets de la variété et du type de fertilisant sur la croissance des plantes</strong></p>
+
+::: {.authors-block}
+**Rédigé par :** Mistalengar Yves DJERAKEI, Moussa DIÉMÉ, Compaoré BASSIROU  
+*Élèves Ingénieurs Statisticiens Économistes (ISE)*
+
+**Sous l'encadrement de :** M. Carlos AKAKPOVI, Ingénieur Statisticien Économiste (ISE)
+
+:::
+
+---
+
+# Bienvenue {.unnumbered}
+
+Ce livre présente une **analyse de la variance à mesures répétées** appliquée à l'étude de la **croissance des plantes** selon le type de terreau et la variété, à travers le temps.
+
+## Accès aux chapitres
+
+Les trois chapitres sont accessibles via la **table des matières** (barre latérale gauche) ou directement ci-dessous :
+
+- [**Chapitre 1 : Théorie sur l'ANOVA à mesures répétées**](01-theorie-anova-mesures-repetees.qmd)  
+  Contexte, définition, hypothèses (normalité, homogénéité, sphéricité), test de Mauchly et modèle mixte (split-plot).
+
+- [**Chapitre 2 : Analyse descriptive des variables d'étude**](02-analyse-descriptive.qmd)  
+  Import des données, tableau des moyennes et écarts-types, graphique d'évolution (taille selon la période, par groupe et variété).
+
+- [**Chapitre 3 : Facteurs explicatifs de la variable dépendante**](03-facteurs-explicatifs.qmd)  
+  Un facteur ; deux facteurs avec ou sans interaction ; modèle ANOVA mixte, vérifications (Levene, Mauchly), comparaisons post-hoc et conclusion.
