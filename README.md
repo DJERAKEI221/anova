@@ -50,7 +50,13 @@ L’objectif est de proposer un **support pédagogique complet**, mêlant théor
 
 ## 🎓 Contexte académique
 
-Travail réalisé par des **Élèves Ingénieurs Statisticiens Économistes (ISE‑2)** dans le cadre de l’**École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE (ENSAE)**.
+Travail réalisé par des **Élèves Ingénieurs Statisticiens Économistes (ISE‑2)** :
+
+- Mistalengar Yves **DJERAKEI**
+- Moussa **DIÉMÉ**
+- Compaoré **BASSIROU**
+
+sous l’encadrement de **M. Carlos AKAKPOVI**, Ingénieur Statisticien Économiste (ISE), à l’**École nationale de la Statistique et de l’Analyse économique Pierre NDIAYE (ENSAE)**.
 
 Le livre est pensé comme un **complément de cours** sur :
 
@@ -236,5 +242,4 @@ GitHub sert alors le livre à l’adresse :
 [⬆ Retour en haut](#-table-des-matières)
 
 </div>
-
 
